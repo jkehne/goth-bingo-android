@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context="de.int80.gothbingo.MainActivity">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/black"
+        android:paddingTop="1dp"
+        app:layout_constraintHeight_default="spread"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/field11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field14"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/field21"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field22"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field23"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field24"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field25"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/field31"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field32"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field33"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="#666"
+                android:gravity="center"
+                android:text="Free Space"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <TextView
+                android:id="@+id/field34"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field35"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/field41"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field42"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field43"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field44"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field45"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/field51"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field52"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/fieldr53"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field54"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/field55"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light" />
+        </TableRow>
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>
