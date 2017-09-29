@@ -25,7 +25,7 @@
             android:paddingBottom="1dp"
             android:paddingRight="1dp">
 
-            <TextView
+            <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,10 +34,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="1"
+                app:coordY="1" />
 
-            <TextView
-                android:id="@+id/field12"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field21"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -45,10 +49,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="2"
+                app:coordY="1" />
 
-            <TextView
-                android:id="@+id/field13"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field31"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -56,10 +64,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="3"
+                app:coordY="1" />
 
-            <TextView
-                android:id="@+id/field14"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field41"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -67,10 +79,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="4"
+                app:coordY="1" />
 
-            <TextView
-                android:id="@+id/field15"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field51"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -78,7 +94,11 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="5"
+                app:coordY="1" />
         </TableRow>
 
         <TableRow
@@ -89,8 +109,8 @@
             android:paddingBottom="1dp"
             android:paddingRight="1dp">
 
-            <TextView
-                android:id="@+id/field21"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -98,9 +118,13 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="1"
+                app:coordY="2" />
 
-            <TextView
+            <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field22"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -109,10 +133,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="2"
+                app:coordY="2" />
 
-            <TextView
-                android:id="@+id/field23"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field32"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -120,10 +148,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="3"
+                app:coordY="2" />
 
-            <TextView
-                android:id="@+id/field24"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field42"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -131,10 +163,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="4"
+                app:coordY="2" />
 
-            <TextView
-                android:id="@+id/field25"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field52"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -142,7 +178,11 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="5"
+                app:coordY="2" />
         </TableRow>
 
         <TableRow
@@ -153,8 +193,8 @@
             android:paddingBottom="1dp"
             android:paddingRight="1dp">
 
-            <TextView
-                android:id="@+id/field31"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field13"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -162,10 +202,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="1"
+                app:coordY="3" />
 
-            <TextView
-                android:id="@+id/field32"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field23"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -173,7 +217,11 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="2"
+                app:coordY="3" />
 
             <TextView
                 android:id="@+id/field33"
@@ -186,60 +234,7 @@
                 android:text="Free Space"
                 android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/field34"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:gravity="center"
-                android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
-                android:id="@+id/field35"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:gravity="center"
-                android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingBottom="1dp"
-            android:paddingRight="1dp">
-
-            <TextView
-                android:id="@+id/field41"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:gravity="center"
-                android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
-                android:id="@+id/field42"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:gravity="center"
-                android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
+            <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field43"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -248,10 +243,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="4"
+                app:coordY="3" />
 
-            <TextView
-                android:id="@+id/field44"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field53"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -259,18 +258,11 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
-
-            <TextView
-                android:id="@+id/field45"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:gravity="center"
-                android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="5"
+                app:coordY="3" />
         </TableRow>
 
         <TableRow
@@ -281,8 +273,8 @@
             android:paddingBottom="1dp"
             android:paddingRight="1dp">
 
-            <TextView
-                android:id="@+id/field51"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -290,10 +282,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="1"
+                app:coordY="4" />
 
-            <TextView
-                android:id="@+id/field52"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field24"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -301,10 +297,14 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="2"
+                app:coordY="4" />
 
-            <TextView
-                android:id="@+id/fieldr53"
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field34"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -312,9 +312,28 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="3"
+                app:coordY="4" />
 
-            <TextView
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field44"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="4"
+                app:coordY="4" />
+
+            <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field54"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -323,9 +342,82 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="5"
+                app:coordY="4" />
+        </TableRow>
 
-            <TextView
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp">
+
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="1"
+                app:coordY="5" />
+
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field25"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="2"
+                app:coordY="5" />
+
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/fieldr35"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="3"
+                app:coordY="5" />
+
+            <de.int80.gothbingo.BingoFieldView
+                android:id="@+id/field45"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="4"
+                app:coordY="5" />
+
+            <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field55"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -334,7 +426,11 @@
                 android:background="@android:color/background_light"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:onClick="onBingoFieldClick"
+                android:clickable="true"
+                app:coordX="5"
+                app:coordY="5" />
         </TableRow>
     </TableLayout>
 </android.support.constraint.ConstraintLayout>
