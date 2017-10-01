@@ -23,6 +23,10 @@ public class BingoFieldView extends AppCompatTextView {
         return y;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
     private boolean checked = false;
 
     public BingoFieldView(Context context, @Nullable AttributeSet attrs) {
