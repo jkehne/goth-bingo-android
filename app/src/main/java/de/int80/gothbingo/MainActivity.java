@@ -13,6 +13,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null)
+            state = (GameState)savedInstanceState.getSerializable(STATE_KEY);
+
+        if (state == null)
+            state = new GameState();
     }
 
     public void onBingoFieldClick (View view) {
@@ -28,12 +34,5 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putSerializable(STATE_KEY, state);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        state = (GameState)savedInstanceState.getSerializable(STATE_KEY);
     }
 }
