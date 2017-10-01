@@ -40,8 +40,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="1"
-                app:coordY="1" />
+                app:coordX="0"
+                app:coordY="0" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field21"
@@ -55,8 +55,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="2"
-                app:coordY="1" />
+                app:coordX="1"
+                app:coordY="0" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field31"
@@ -70,8 +70,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="3"
-                app:coordY="1" />
+                app:coordX="2"
+                app:coordY="0" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field41"
@@ -85,8 +85,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="4"
-                app:coordY="1" />
+                app:coordX="3"
+                app:coordY="0" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field51"
@@ -100,8 +100,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="5"
-                app:coordY="1" />
+                app:coordX="4"
+                app:coordY="0" />
         </TableRow>
 
         <TableRow
@@ -124,8 +124,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="1"
-                app:coordY="2" />
+                app:coordX="0"
+                app:coordY="1" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field22"
@@ -139,8 +139,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="2"
-                app:coordY="2" />
+                app:coordX="1"
+                app:coordY="1" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field32"
@@ -154,8 +154,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="3"
-                app:coordY="2" />
+                app:coordX="2"
+                app:coordY="1" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field42"
@@ -169,8 +169,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="4"
-                app:coordY="2" />
+                app:coordX="3"
+                app:coordY="1" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field52"
@@ -184,8 +184,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="5"
-                app:coordY="2" />
+                app:coordX="4"
+                app:coordY="1" />
         </TableRow>
 
         <TableRow
@@ -208,8 +208,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="1"
-                app:coordY="3" />
+                app:coordX="0"
+                app:coordY="2" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field23"
@@ -223,8 +223,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="2"
-                app:coordY="3" />
+                app:coordX="1"
+                app:coordY="2" />
 
             <TextView
                 android:id="@+id/field33"
@@ -249,8 +249,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="4"
-                app:coordY="3" />
+                app:coordX="3"
+                app:coordY="2" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field53"
@@ -264,8 +264,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="5"
-                app:coordY="3" />
+                app:coordX="4"
+                app:coordY="2" />
         </TableRow>
 
         <TableRow
@@ -288,8 +288,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="1"
-                app:coordY="4" />
+                app:coordX="0"
+                app:coordY="3" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field24"
@@ -303,8 +303,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="2"
-                app:coordY="4" />
+                app:coordX="1"
+                app:coordY="3" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field34"
@@ -318,8 +318,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="3"
-                app:coordY="4" />
+                app:coordX="2"
+                app:coordY="3" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field44"
@@ -333,8 +333,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="4"
-                app:coordY="4" />
+                app:coordX="3"
+                app:coordY="3" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field54"
@@ -348,8 +348,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="5"
-                app:coordY="4" />
+                app:coordX="4"
+                app:coordY="3" />
         </TableRow>
 
         <TableRow
@@ -372,8 +372,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="1"
-                app:coordY="5" />
+                app:coordX="0"
+                app:coordY="4" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field25"
@@ -387,8 +387,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="2"
-                app:coordY="5" />
+                app:coordX="1"
+                app:coordY="4" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field35"
@@ -402,8 +402,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="3"
-                app:coordY="5" />
+                app:coordX="2"
+                app:coordY="4" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field45"
@@ -417,8 +417,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="4"
-                app:coordY="5" />
+                app:coordX="3"
+                app:coordY="4" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field55"
@@ -432,8 +432,8 @@
                 android:onClick="onBingoFieldClick"
                 android:text="TextView"
                 android:textColor="@android:color/primary_text_light"
-                app:coordX="5"
-                app:coordY="5" />
+                app:coordX="4"
+                app:coordY="4" />
 
         </TableRow>
     </TableLayout>
