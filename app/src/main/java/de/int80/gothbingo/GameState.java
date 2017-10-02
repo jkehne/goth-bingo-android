@@ -1,6 +1,7 @@
 package de.int80.gothbingo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by jens on 29.09.17.
@@ -15,8 +16,22 @@ public class GameState implements Serializable {
             {false, false, false, false, false}
     };
 
+    public void setAllFields(ArrayList<String> allFields) {
+        this.allFields = allFields;
+    }
+
+    public ArrayList<String> getAllFields() {
+        return allFields;
+    }
+
+    private ArrayList<String> allFields;
+
     public void toggleField(int x, int y) {
         checkedFields[x][y] = checkedFields[x][y] ? false : true;
+    }
+
+    public boolean isFieldChecked(int x, int y) {
+        return checkedFields[x][y];
     }
 
     public boolean hasFullRow() {

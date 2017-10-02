@@ -1,12 +1,8 @@
 package de.int80.gothbingo;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.TableRow;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -27,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by jens on 02.10.17.
  */
 
-public class FieldContentFetcher extends AsyncTask<Void, Void, Boolean> {
+public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
     private ProgressDialog dialog;
@@ -43,7 +38,6 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, Boolean> {
         fieldsURL = fieldsURL1;
     }
 
-    private static ArrayList<String> fields = new ArrayList<String>();
     private static String lastEtag;
 
     private MainActivity parentActivity;
@@ -84,81 +78,50 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, Boolean> {
         return result.toString();
     }
 
-    private boolean updateFieldsList(String fieldsString) {
+    private ArrayList<String> buildFieldsList(String fieldsString) {
         int i;
+        ArrayList<String> result = new ArrayList<String>();
 
         try {
             JSONObject json = new JSONObject(fieldsString);
 
             JSONArray squares = json.getJSONArray("squares");
 
-            fields.clear();
-
             for (i = 0; i < squares.length(); ++i) {
-                fields.add(squares.getJSONObject(i).getString("square"));
+                result.add(squares.getJSONObject(i).getString("square"));
             }
         } catch (JSONException e) {
             Log.e(TAG, "JSON parsing failed: " + e.toString());
-            return false;
+            return null;
         }
 
-        return true;
-    }
-
-    private void setFieldContents(ArrayList<String> fields) {
-        int row, col;
-        ViewGroup root, rowHandle;
-        BingoFieldView field;
-
-        Collections.shuffle(fields);
-
-        root = (ViewGroup) parentActivity.findViewById(R.id.BingoFieldLayout);
-
-        for (row = 0; row < root.getChildCount(); ++row) {
-            rowHandle = (ViewGroup) root.getChildAt(row);
-
-            for (col = 0; col < rowHandle.getChildCount(); ++col) {
-                if (!(rowHandle.getChildAt(col) instanceof BingoFieldView))
-                    continue;
-
-                field = (BingoFieldView) rowHandle.getChildAt(col);
-                field.setText(fields.get(row * 5 + col));
-            }
-        }
+        return result;
     }
 
     @Override
-    protected Boolean doInBackground(Void... voids) {
+    protected ArrayList<String> doInBackground(Void... voids) {
         String fieldsString;
+        ArrayList<String> result = null;
 
         try {
             fieldsString = getContentsString(fieldsURL);
         } catch (IOException e) {
-            return false;
+            return null;
         }
 
         if (!fieldsString.isEmpty())
-            if (!updateFieldsList(fieldsString))
-                return false;
+            result = buildFieldsList(fieldsString);
 
-        return true;
+        return result;
     }
 
     @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
+    protected void onPostExecute(ArrayList<String> result) {
+        super.onPostExecute(result);
 
-        if (aBoolean)
-            setFieldContents(fields);
+        parentActivity.setFieldContents(result, false);
 
         if (dialog.isShowing())
             dialog.dismiss();
-
-        if (!aBoolean) {
-            AlertDialog alert = new AlertDialog.Builder(parentActivity).create();
-            alert.setMessage("Download failed");
-            alert.setCancelable(false);
-            alert.show();
-        }
     }
 }

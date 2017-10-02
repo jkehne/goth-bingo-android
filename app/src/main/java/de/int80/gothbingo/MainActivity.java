@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableRow;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity {
     private final String STATE_KEY = GameState.class.getName();
 
@@ -19,10 +22,13 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null)
             state = (GameState)savedInstanceState.getSerializable(STATE_KEY);
 
-        if (state == null)
+        if (state == null) {
             state = new GameState();
 
-        new FieldContentFetcher(this).execute();
+            FieldContentFetcher fetcher = new FieldContentFetcher(this);
+            fetcher.execute();
+        } else
+            setFieldContents(state.getAllFields(), true);
     }
 
     public void onBingoFieldClick(View view) {
@@ -79,5 +85,35 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putSerializable(STATE_KEY, state);
+    }
+
+    public void setFieldContents(ArrayList<String> fields, boolean reload) {
+        int row, col;
+        ViewGroup root, rowHandle;
+        BingoFieldView field;
+
+        if (fields != null) {
+            state.setAllFields(fields);
+        } else
+            fields = state.getAllFields();
+
+        if (!reload)
+            Collections.shuffle(fields);
+
+        root = (ViewGroup) findViewById(R.id.BingoFieldLayout);
+
+        for (row = 0; row < root.getChildCount(); ++row) {
+            rowHandle = (ViewGroup) root.getChildAt(row);
+
+            for (col = 0; col < rowHandle.getChildCount(); ++col) {
+                if (!(rowHandle.getChildAt(col) instanceof BingoFieldView))
+                    continue;
+
+                field = (BingoFieldView) rowHandle.getChildAt(col);
+                field.setText(fields.get(row * 5 + col));
+                if (state.isFieldChecked(col, row))
+                    field.toggle();
+            }
+        }
     }
 }
