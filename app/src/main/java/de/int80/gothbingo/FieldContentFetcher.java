@@ -63,7 +63,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, Boolean> {
 
     private String getContentsString(URL url) throws IOException {
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        connection.setRequestProperty("ETag", lastEtag);
+        connection.setRequestProperty("If-None-Match", lastEtag);
         connection.connect();
 
         if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_MODIFIED)
