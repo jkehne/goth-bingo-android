@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (state == null)
             state = new GameState();
+
+        new FieldContentFetcher(this).execute();
     }
 
     public void onBingoFieldClick(View view) {
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
+        new FieldContentFetcher(this).execute();
     }
 
     @Override
