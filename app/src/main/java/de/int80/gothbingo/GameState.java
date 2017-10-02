@@ -10,7 +10,7 @@ public class GameState implements Serializable {
     private boolean checkedFields[][] = {
             {false, false, false, false, false},
             {false, false, false, false, false},
-            {false, false, false, false, false},
+            {false, false, true,  false, false},
             {false, false, false, false, false},
             {false, false, false, false, false}
     };
