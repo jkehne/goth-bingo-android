@@ -16,6 +16,10 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
     private final String STATE_KEY = GameState.class.getName();
 
+    public GameState getState() {
+        return state;
+    }
+
     private GameState state;
 
     @Override

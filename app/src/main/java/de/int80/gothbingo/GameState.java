@@ -26,6 +26,16 @@ public class GameState implements Serializable {
 
     private ArrayList<String> allFields;
 
+    public String getLastEtag() {
+        return lastEtag;
+    }
+
+    public void setLastEtag(String lastEtag) {
+        this.lastEtag = lastEtag;
+    }
+
+    private String lastEtag;
+
     public void toggleField(int x, int y) {
         checkedFields[x][y] = checkedFields[x][y] ? false : true;
     }

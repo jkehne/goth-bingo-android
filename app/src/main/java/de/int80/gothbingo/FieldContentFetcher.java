@@ -38,8 +38,6 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         fieldsURL = fieldsURL1;
     }
 
-    private static String lastEtag;
-
     private MainActivity parentActivity;
 
     public FieldContentFetcher(MainActivity activity) {
@@ -56,8 +54,13 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
     }
 
     private String getContentsString(URL url) throws IOException {
+        GameState state = parentActivity.getState();
+
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        connection.setRequestProperty("If-None-Match", lastEtag);
+
+        if (state.getLastEtag() != null)
+            connection.setRequestProperty("If-None-Match", state.getLastEtag());
+
         connection.connect();
 
         if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_MODIFIED)
@@ -65,7 +68,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         else if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
             throw new IOException();
 
-        lastEtag = connection.getHeaderField("ETag");
+        state.setLastEtag(connection.getHeaderField("ETag"));
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
