@@ -4,4 +4,5 @@
     <string name="play_again_button_text">Tap here to play again</string>
     <string name="refresh_button_text">Reload</string>
     <string name="exit_button_text">Exit</string>
+    <string name="free_space_text">Free space</string>
 </resources>
