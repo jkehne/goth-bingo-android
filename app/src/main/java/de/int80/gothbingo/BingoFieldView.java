@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 /**
  * Created by jens on 29.09.17.
  */
 
-public class BingoFieldView extends AppCompatTextView {
+public class BingoFieldView extends TextView {
     private int x;
     private int y;
 
