@@ -26,16 +26,6 @@ public class GameState implements Serializable {
 
     private ArrayList<String> allFields;
 
-    public String getLastEtag() {
-        return lastEtag;
-    }
-
-    public void setLastEtag(String lastEtag) {
-        this.lastEtag = lastEtag;
-    }
-
-    private String lastEtag;
-
     public String getPlayerName() {
         return playerName;
     }

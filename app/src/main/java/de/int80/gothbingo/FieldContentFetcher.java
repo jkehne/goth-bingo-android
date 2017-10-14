@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -44,20 +45,19 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
     private String getContentsString(String url) throws IOException {
         GameState state = parentActivity.getState();
 
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.cache(new Cache(parentActivity.getCacheDir(), 1024 * 1024));
+        OkHttpClient client = clientBuilder.build();
+
         Request.Builder builder = new Request.Builder();
         builder.url(url);
 
-        if (state.getLastEtag() != null)
-            builder.header("If-None-Match", state.getLastEtag());
-
-        Response response = new OkHttpClient().newCall(builder.build()).execute();
+        Response response = client.newCall(builder.build()).execute();
 
         if (!response.isSuccessful())
             throw new IOException();
-        else if (response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED)
+        else if (response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED && state.getAllFields() != null)
             return "";
-
-        state.setLastEtag(response.header("Etag"));
 
         return response.body().string();
     }
