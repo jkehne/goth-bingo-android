@@ -2,4 +2,14 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="fieldBackgroundColor">@android:color/background_light</color>
+    <color name="fieldTextColor">@android:color/primary_text_light</color>
+    <color name="checkedFieldBackgroundColor">#666666</color>
+    <color name="checkedFieldTextColor">@android:color/primary_text_dark</color>
+
+    <color name="fieldSeparatorColor">@android:color/black</color>
+
+    <color name="winMessageBackgroundColor">#cc444444</color>
+    <color name="winMessageTextColor">@android:color/white</color>
 </resources>

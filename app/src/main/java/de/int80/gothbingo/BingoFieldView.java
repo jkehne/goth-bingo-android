@@ -45,12 +45,12 @@ public class BingoFieldView extends AppCompatTextView implements View.OnClickLis
 
     public void toggle() {
         if (checked) {
-            this.setTextColor(Color.BLACK);
-            this.setBackgroundColor(Color.WHITE);
+            this.setTextColor(getResources().getColor(R.color.fieldTextColor));
+            this.setBackgroundColor(getResources().getColor(R.color.fieldBackgroundColor));
             checked = false;
         } else {
-            this.setTextColor(Color.WHITE);
-            this.setBackgroundColor(Color.parseColor("#666666"));
+            this.setTextColor(getResources().getColor(R.color.checkedFieldTextColor));
+            this.setBackgroundColor(getResources().getColor(R.color.checkedFieldBackgroundColor));
             checked = true;
         }
     }
