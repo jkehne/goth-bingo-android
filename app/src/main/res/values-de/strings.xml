@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="win_message">Gewonnen!</string>
+    <string name="lose_message">gewinnt!</string>
     <string name="play_again_button_text">Hier klicken, um nochmal zu spielen</string>
     <string name="refresh_button_text">Reload</string>
     <string name="exit_button_text">Exit</string>

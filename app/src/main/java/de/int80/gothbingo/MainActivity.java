@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,28 +50,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBingoFieldClick(View view) {
-        int row, column;
-        TableRow rowHandle;
-
         if (view instanceof BingoFieldView) {
             BingoFieldView bingoField = (BingoFieldView)view;
             bingoField.toggle();
             state.toggleField(bingoField.getFieldX(), bingoField.getFieldY());
 
-            if (state.hasFullRow()) {
-                findViewById(R.id.WinMessageOverlay).setVisibility(View.VISIBLE);
-                ViewGroup parent = (ViewGroup)findViewById(R.id.BingoFieldLayout);
-                for (row = 0; row < parent.getChildCount(); ++row) {
-                    rowHandle = (TableRow)parent.getChildAt(row);
-                    for (column = 0; column < rowHandle.getChildCount(); ++column) {
-                        rowHandle.getChildAt(column).setClickable(false);
-                    }
-                }
+            if (state.hasFullRow())
+                displayWinMessage(getString(R.string.win_message));
+        }
+    }
+
+    public void displayWinMessage(String message) {
+        int row, column;
+        TableRow rowHandle;
+
+        ((TextView)findViewById(R.id.WinMessage)).setText(message);
+        findViewById(R.id.WinMessageOverlay).setVisibility(View.VISIBLE);
+        ViewGroup parent = (ViewGroup)findViewById(R.id.BingoFieldLayout);
+        for (row = 0; row < parent.getChildCount(); ++row) {
+            rowHandle = (TableRow)parent.getChildAt(row);
+            for (column = 0; column < rowHandle.getChildCount(); ++column) {
+                rowHandle.getChildAt(column).setClickable(false);
             }
         }
     }
 
-    public void onPlayAgainButtonClick(View view) {
+    private void hideWinMessage() {
         int row, column;
         TableRow rowHandle;
 
@@ -93,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void onPlayAgainButtonClick(View view) {
+        hideWinMessage();
 
         new FieldContentFetcher(this).execute();
     }
