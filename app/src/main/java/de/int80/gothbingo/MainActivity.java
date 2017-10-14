@@ -1,5 +1,6 @@
 package de.int80.gothbingo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
 
             FieldContentFetcher fetcher = new FieldContentFetcher(this);
             fetcher.execute();
-        } else
+        } else {
             setFieldContents(state.getAllFields(), true);
+
+            Intent launchIntent = getIntent();
+            state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
+            state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
+        }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
     }
 
     public void onBingoFieldClick(View view) {
@@ -143,10 +148,21 @@ public class MainActivity extends AppCompatActivity {
                 onPlayAgainButtonClick(null);
                 return true;
             case R.id.ExitButton:
-                //TODO
+                handleGameExit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        handleGameExit();
+    }
+
+    private void handleGameExit() {
+        finish();
     }
 }

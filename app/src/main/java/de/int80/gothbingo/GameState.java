@@ -36,6 +36,25 @@ public class GameState implements Serializable {
 
     private String lastEtag;
 
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
+    }
+
+    private String playerName;
+    private String gameID;
+
     public void toggleField(int x, int y) {
         checkedFields[x][y] = checkedFields[x][y] ? false : true;
     }
