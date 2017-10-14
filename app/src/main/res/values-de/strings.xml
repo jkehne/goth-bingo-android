@@ -5,4 +5,9 @@
     <string name="refresh_button_text">Reload</string>
     <string name="exit_button_text">Exit</string>
     <string name="free_space_text">Freifeld</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Name</string>
+    <string name="prompt_password">Game ID</string>
+    <string name="action_sign_in">Start</string>
 </resources>
