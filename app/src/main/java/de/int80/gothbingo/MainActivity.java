@@ -88,10 +88,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideWinMessage() {
+        findViewById(R.id.WinMessageOverlay).setVisibility(View.GONE);
+    }
+
+    private void resetClickedState() {
         int row, column;
         TableRow rowHandle;
-
-        findViewById(R.id.WinMessageOverlay).setVisibility(View.GONE);
 
         ViewGroup parent = (ViewGroup)findViewById(R.id.BingoFieldLayout);
 
@@ -135,8 +137,10 @@ public class MainActivity extends AppCompatActivity {
         } else
             fields = state.getAllFields();
 
-        if (!reload)
+        if (!reload) {
             Collections.shuffle(fields);
+            resetClickedState();
+        }
 
         root = (ViewGroup) findViewById(R.id.BingoFieldLayout);
 
