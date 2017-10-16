@@ -15,7 +15,8 @@
             android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/SigninActivityTheme">
+            android:theme="@style/SigninActivityTheme"
+            android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
