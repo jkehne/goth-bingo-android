@@ -38,6 +38,7 @@ public class BingoFieldView extends AppCompatTextView implements View.OnClickLis
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BingoFieldView);
         x = a.getInteger(R.styleable.BingoFieldView_coordX, 0);
         y = a.getInteger(R.styleable.BingoFieldView_coordY, 0);
+        a.recycle();
 
         setOnClickListener(this);
         parent = (MainActivity)context;
