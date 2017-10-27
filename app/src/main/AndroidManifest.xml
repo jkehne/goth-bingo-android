@@ -27,7 +27,8 @@
         <service
             android:name=".WebSocketService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false"
+            android:stopWithTask="true" />
     </application>
 
 </manifest>
