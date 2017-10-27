@@ -13,4 +13,6 @@
     <string name="prompt_email">Name</string>
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Start</string>
+
+    <string name="service_notification_text">Verbunden zum Server</string>
 </resources>
