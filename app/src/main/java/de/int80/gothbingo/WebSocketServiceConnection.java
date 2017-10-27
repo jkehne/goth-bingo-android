@@ -31,6 +31,7 @@ public class WebSocketServiceConnection implements ServiceConnection {
     }
 
     public void disconnect() {
+        mService.setParentActivity(null);
         mContext.unbindService(this);
     }
 
@@ -43,6 +44,6 @@ public class WebSocketServiceConnection implements ServiceConnection {
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
-        mService.setParentActivity(null);
+        //nothing to do here
     }
 }
