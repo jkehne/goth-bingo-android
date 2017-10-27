@@ -1,7 +1,6 @@
 package de.int80.gothbingo;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private GameState state;
-
-    private MediaPlayer winSound;
 
     private WebSocketServiceConnection backgroundServiceConnection;
 
@@ -53,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        if (winSound == null)
-            winSound = MediaPlayer.create(getApplicationContext(), R.raw.win_sound);
-
         backgroundServiceConnection = new WebSocketServiceConnection(this);
     }
 
@@ -81,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (state.hasFullRow()) {
                 displayWinMessage(getString(R.string.win_message));
-                playWinSoud();
+                backgroundServiceConnection.getService().playWinSoud();
             }
         }
     }
@@ -99,10 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 rowHandle.getChildAt(column).setClickable(false);
             }
         }
-    }
-
-    public void playWinSoud() {
-        winSound.start();
     }
 
     private void hideWinMessage() {
@@ -208,12 +198,5 @@ public class MainActivity extends AppCompatActivity {
     private void handleGameExit() {
         backgroundServiceConnection.getService().stop();
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        winSound.release();
-
-        super.onDestroy();
     }
 }
