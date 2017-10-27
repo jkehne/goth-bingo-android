@@ -20,17 +20,18 @@ public class WebSocketServiceConnection implements ServiceConnection {
 
     public WebSocketServiceConnection(Context context) {
         mContext = context;
-    }
 
-    public boolean startService() {
         Intent intent = new Intent(mContext, WebSocketService.class);
         mContext.startService(intent);
+    }
+
+    public boolean connect() {
+        Intent intent = new Intent(mContext, WebSocketService.class);
         return mContext.bindService(intent, this, 0);
     }
 
-    public void stopService() {
+    public void disconnect() {
         mContext.unbindService(this);
-        mService.stop();
     }
 
     @Override

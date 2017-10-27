@@ -57,7 +57,20 @@ public class MainActivity extends AppCompatActivity {
             winSound = MediaPlayer.create(getApplicationContext(), R.raw.win_sound);
 
         backgroundServiceConnection = new WebSocketServiceConnection(this);
-        backgroundServiceConnection.startService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        backgroundServiceConnection.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        backgroundServiceConnection.disconnect();
     }
 
     public void onBingoFieldClick(View view) {
@@ -193,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleGameExit() {
-        backgroundServiceConnection.stopService();
+        backgroundServiceConnection.getService().stop();
         finish();
     }
 
