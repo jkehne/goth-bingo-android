@@ -11,6 +11,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -98,15 +100,18 @@ public class WebSocketService extends Service {
     }
 
     private void moveToForeground() {
-        startForeground(1, makeNotification(getString(R.string.service_notification_text), true));
+        startForeground(1, makeNotification(getString(R.string.disconnected_notification_text), true));
     }
 
-    private WebSocket connectToServer() {
+    public void connectToServer() {
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(1, makeNotification(getString(R.string.connecting_notification_text), true));
+
         Request.Builder requestBuilder = new Request.Builder();
         Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
 
-        OkHttpClient client = new OkHttpClient();
-        return client.newWebSocket(request, new MessageHandler(this));
+        OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
+        connection = client.newWebSocket(request, new MessageHandler(this));
     }
 
     @Override
@@ -120,7 +125,7 @@ public class WebSocketService extends Service {
         gameID = intent.getStringExtra(GAME_ID_KEY);
 
         if (connection == null)
-            connection = connectToServer();
+            connectToServer();
 
         return START_STICKY;
     }
@@ -141,11 +146,13 @@ public class WebSocketService extends Service {
     private void handleGameEnd() {
         hasWinner = true;
         connection.close(1000, null);
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(1, makeNotification(getString(R.string.disconnected_notification_text), true));
     }
 
     public void startNewGame() {
         hasWinner = false;
-        connection = connectToServer();
+        connectToServer();
     }
 
     public void handleLoss(int gameNumber, String winner) {
@@ -177,5 +184,10 @@ public class WebSocketService extends Service {
         localWin = true;
         playWinSoud();
         handleGameEnd();
+    }
+
+    public void handleConnectionEstablished() {
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(1, makeNotification(getString(R.string.connected_notification_text), true));
     }
 }

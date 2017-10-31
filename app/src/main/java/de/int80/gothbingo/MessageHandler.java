@@ -1,5 +1,6 @@
 package de.int80.gothbingo;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import okhttp3.Response;
@@ -72,5 +73,14 @@ public class MessageHandler extends WebSocketListener {
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         webSocket.send("SIGNIN;" + parentService.getGameID());
+        parentService.handleConnectionEstablished();
+    }
+
+    @Override
+    public void onFailure(WebSocket webSocket, Throwable t, @Nullable Response response) {
+        if (!parentService.hasWinner()) {
+            Log.e(TAG, "Lost connection to server: " + ((response != null) ? response.message() : ""), t);
+            parentService.connectToServer();
+        }
     }
 }

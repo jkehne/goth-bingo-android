@@ -14,5 +14,7 @@
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Sign in</string>
 
-    <string name="service_notification_text">Connected to server</string>
+    <string name="connected_notification_text">Connected to server</string>
+    <string name="connecting_notification_text">Connecting...</string>
+    <string name="disconnected_notification_text">Disconnected</string>
 </resources>
