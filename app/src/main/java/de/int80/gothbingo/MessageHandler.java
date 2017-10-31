@@ -26,7 +26,12 @@ public class MessageHandler extends WebSocketListener {
     private void handleSignin(String params) {
         String[] tokens = params.split(";");
         int gameNumber = Integer.valueOf(tokens[0]);
-        String winner = tokens[1];
+        String winner;
+        try {
+            winner = tokens[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            winner = "";
+        }
 
         if (parentService.getCurrentGameNumber() == 0) {
             parentService.setCurrentGameNumber(gameNumber);
