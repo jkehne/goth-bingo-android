@@ -16,12 +16,16 @@ public class WebSocketServiceConnection implements ServiceConnection {
     }
 
     private WebSocketService mService;
-    private Context mContext;
+    private MainActivity mContext;
 
-    public WebSocketServiceConnection(Context context) {
+    public WebSocketServiceConnection(MainActivity context) {
         mContext = context;
 
+        GameState state = mContext.getState();
+
         Intent intent = new Intent(mContext, WebSocketService.class);
+        intent.putExtra(WebSocketService.PLAYER_NAME_KEY, state.getPlayerName());
+        intent.putExtra(WebSocketService.GAME_ID_KEY, state.getGameID());
         mContext.startService(intent);
     }
 

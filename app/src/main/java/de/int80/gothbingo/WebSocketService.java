@@ -10,19 +10,24 @@ import android.support.v7.app.NotificationCompat;
 
 public class WebSocketService extends Service {
 
+    public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
+    public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";
+
     public class LocalBinder extends Binder {
         WebSocketService getService() {
             return WebSocketService.this;
         }
     }
 
-    public void setParentActivity(Context parentActivity) {
+    public void setParentActivity(MainActivity parentActivity) {
         this.parentActivity = parentActivity;
     }
 
     private final LocalBinder mBinder = new LocalBinder();
     private MediaPlayer winSound;
-    private Context parentActivity;
+    private MainActivity parentActivity;
+    private String playerName;
+    private String gameID;
 
     public WebSocketService() {
     }
@@ -48,6 +53,9 @@ public class WebSocketService extends Service {
 
         if (winSound == null)
             winSound = MediaPlayer.create(getApplicationContext(), R.raw.win_sound);
+
+        playerName = intent.getStringExtra(PLAYER_NAME_KEY);
+        gameID = intent.getStringExtra(GAME_ID_KEY);
 
         return START_STICKY;
     }
