@@ -1,5 +1,7 @@
 package de.int80.gothbingo;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         backgroundServiceConnection.connect();
+
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(2);
     }
 
     @Override

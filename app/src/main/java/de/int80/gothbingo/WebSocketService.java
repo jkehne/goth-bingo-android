@@ -1,7 +1,10 @@
 package de.int80.gothbingo;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
@@ -78,15 +81,24 @@ public class WebSocketService extends Service {
         return PendingIntent.getActivity(this, 0, resultIntent, 0);
     }
 
-    private void moveToForeground() {
+    private Notification makeNotification (String message, boolean background) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(getString(R.string.app_name));
-        builder.setContentText(getString(R.string.service_notification_text));
+        builder.setContentText(message);
         builder.setSmallIcon(R.drawable.ic_notification);
-        builder.setPriority(NotificationCompat.PRIORITY_MIN);
+        builder.setPriority(background ? NotificationCompat.PRIORITY_MIN : NotificationCompat.COLOR_DEFAULT);
         builder.setContentIntent(makeNotificationClickAction());
 
-        startForeground(1, builder.build());
+        Notification notification = builder.build();
+        if (!background) {
+            notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
+        }
+
+        return notification;
+    }
+
+    private void moveToForeground() {
+        startForeground(1, makeNotification(getString(R.string.service_notification_text), true));
     }
 
     private WebSocket connectToServer() {
@@ -136,18 +148,23 @@ public class WebSocketService extends Service {
         connection = connectToServer();
     }
 
-    public void handleLoss(int gameNumber, final String winner) {
+    public void handleLoss(int gameNumber, String winner) {
         lastWinner = winner;
         currentGameNumber = gameNumber;
         localWin = false;
+
+        final String winMessage = winner + " " + getString(R.string.lose_message);
 
         if (parentActivity != null) {
             parentActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    parentActivity.displayWinMessage(winner + " " + getString(R.string.lose_message));
+                    parentActivity.displayWinMessage(winMessage);
                 }
             });
+        } else {
+            NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(2, makeNotification(winMessage, false));
         }
 
         playWinSoud();
