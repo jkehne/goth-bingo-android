@@ -15,4 +15,6 @@
     <string name="action_sign_in">Start</string>
 
     <string name="service_notification_text">Hintergrunddienst läuft</string>
+
+    <string name="fields_downloading_message">Lade Feldinhalte, bitte warten</string>
 </resources>

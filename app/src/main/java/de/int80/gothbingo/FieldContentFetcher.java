@@ -31,7 +31,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
 
     public FieldContentFetcher(MainActivity activity) {
         dialog = new ProgressDialog(activity);
-        dialog.setMessage("Getting field contents, please wait");
+        dialog.setMessage(activity.getString(R.string.fields_downloading_message));
 
         parentActivity = activity;
     }
