@@ -61,6 +61,10 @@ public class WebSocketService extends Service {
         return localWin;
     }
 
+    public boolean isTerminated() {
+        return terminated;
+    }
+
     private final LocalBinder mBinder = new LocalBinder();
     private MainActivity parentActivity;
     private String playerName;
@@ -70,6 +74,7 @@ public class WebSocketService extends Service {
     private String lastWinner;
     private boolean hasWinner;
     private boolean localWin;
+    private boolean terminated;
 
     public WebSocketService() {
     }
@@ -135,6 +140,7 @@ public class WebSocketService extends Service {
 
         stopForeground(true);
         stopSelf();
+        terminated = true;
         theInstance = null;
     }
 
