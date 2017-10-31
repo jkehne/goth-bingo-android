@@ -8,6 +8,10 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
+
 public class WebSocketService extends Service {
 
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
@@ -23,11 +27,35 @@ public class WebSocketService extends Service {
         this.parentActivity = parentActivity;
     }
 
+    public String getGameID() {
+        return gameID;
+    }
+
+    public void setCurrentGameNumber(int currentGameNumber) {
+        this.currentGameNumber = currentGameNumber;
+    }
+
+    public int getCurrentGameNumber() {
+        return currentGameNumber;
+    }
+
+    public String getLastWinner() {
+        return lastWinner;
+    }
+
+    public boolean hasWinner() {
+        return hasWinner;
+    }
+
     private final LocalBinder mBinder = new LocalBinder();
     private MediaPlayer winSound;
     private MainActivity parentActivity;
     private String playerName;
     private String gameID;
+    private WebSocket connection;
+    private int currentGameNumber;
+    private String lastWinner;
+    private boolean hasWinner;
 
     public WebSocketService() {
     }
@@ -56,6 +84,14 @@ public class WebSocketService extends Service {
         startForeground(1, builder.build());
     }
 
+    private WebSocket connectToServer() {
+        Request.Builder requestBuilder = new Request.Builder();
+        Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
+
+        OkHttpClient client = new OkHttpClient();
+        return client.newWebSocket(request, new MessageHandler(this));
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         moveToForeground();
@@ -66,17 +102,56 @@ public class WebSocketService extends Service {
         playerName = intent.getStringExtra(PLAYER_NAME_KEY);
         gameID = intent.getStringExtra(GAME_ID_KEY);
 
+        if (connection == null)
+            connection = connectToServer();
+
         return START_STICKY;
     }
 
     public void stop() {
         winSound.release();
 
+        connection.close(1001, null);
+
         stopForeground(true);
         stopSelf();
     }
 
-    public void playWinSoud() {
+    private void playWinSoud() {
         winSound.start();
+    }
+
+    private void handleGameEnd() {
+        hasWinner = true;
+        connection.close(1000, null);
+    }
+
+    public void startNewGame() {
+        hasWinner = false;
+        connection = connectToServer();
+    }
+
+    public void handleLoss(int gameNumber, final String winner) {
+        lastWinner = winner;
+        currentGameNumber = gameNumber;
+
+        if (parentActivity != null) {
+            parentActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    parentActivity.displayWinMessage(winner + " " + getString(R.string.lose_message));
+                }
+            });
+        }
+
+        playWinSoud();
+        handleGameEnd();
+    }
+
+    public void handleWin() {
+        connection.send("WIN;" + gameID + ";" + currentGameNumber + ";" + playerName);
+        currentGameNumber++;
+        playWinSoud();
+        handleGameEnd();
     }
 }

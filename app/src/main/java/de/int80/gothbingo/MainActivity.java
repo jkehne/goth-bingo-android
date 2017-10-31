@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (state.hasFullRow()) {
                 displayWinMessage(getString(R.string.win_message));
-                backgroundServiceConnection.getService().playWinSoud();
+                backgroundServiceConnection.getService().handleWin();
             }
         }
     }
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPlayAgainButtonClick(View view) {
         hideWinMessage();
-
+        backgroundServiceConnection.getService().startNewGame();
         new FieldContentFetcher(this).execute();
     }
 
