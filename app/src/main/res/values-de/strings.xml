@@ -17,4 +17,6 @@
     <string name="service_notification_text">Hintergrunddienst läuft</string>
 
     <string name="fields_downloading_message">Lade Feldinhalte, bitte warten</string>
+    <string name="fields_download_failed_title">Download fehlgeschlagen</string>
+    <string name="fields_download_failed_message">Herunteladen der Feldinhalte fehlgeschlagen. Ist die Internetverbindung unterbrochen?</string>
 </resources>

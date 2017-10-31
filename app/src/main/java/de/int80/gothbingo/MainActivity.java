@@ -1,7 +1,9 @@
 package de.int80.gothbingo;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -140,6 +142,20 @@ public class MainActivity extends AppCompatActivity {
         outState.putSerializable(STATE_KEY, state);
     }
 
+    private void showDownloadFailureDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.fields_download_failed_message);
+        builder.setTitle(R.string.fields_download_failed_title);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                handleGameExit();
+            }
+        });
+
+        builder.create().show();
+    }
+
     public void setFieldContents(ArrayList<String> fields, boolean reload) {
         int row, col;
         ViewGroup root, rowHandle;
@@ -149,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
             state.setAllFields(fields);
         } else
             fields = state.getAllFields();
+
+        if (fields == null)
+            showDownloadFailureDialog();
 
         if (!reload) {
             Collections.shuffle(fields);

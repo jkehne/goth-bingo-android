@@ -17,4 +17,6 @@
     <string name="service_notification_text">Background service running</string>
 
     <string name="fields_downloading_message">Getting field contents, please wait</string>
+    <string name="fields_download_failed_title">Download failed</string>
+    <string name="fields_download_failed_message">Failed to download field contents. Is your internet connection working?</string>
 </resources>
