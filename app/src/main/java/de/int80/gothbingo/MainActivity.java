@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
             FieldContentFetcher fetcher = new FieldContentFetcher(this);
             fetcher.execute();
-        } else {
-            setFieldContents(state.getAllFields(), true);
 
             Intent launchIntent = getIntent();
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
+        } else {
+            setFieldContents(state.getAllFields(), true);
         }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
