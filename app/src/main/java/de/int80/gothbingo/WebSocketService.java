@@ -1,7 +1,7 @@
 package de.int80.gothbingo;
 
+import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
@@ -37,12 +37,21 @@ public class WebSocketService extends Service {
         return mBinder;
     }
 
+    private PendingIntent makeNotificationClickAction() {
+        Intent resultIntent = new Intent(this, LoginActivity.class);
+        resultIntent.setAction(Intent.ACTION_MAIN);
+        resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        return PendingIntent.getActivity(this, 0, resultIntent, 0);
+    }
+
     private void moveToForeground() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(getString(R.string.app_name));
         builder.setContentText(getString(R.string.service_notification_text));
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setPriority(NotificationCompat.PRIORITY_MIN);
+        builder.setContentIntent(makeNotificationClickAction());
 
         startForeground(1, builder.build());
     }

@@ -12,7 +12,12 @@
         android:supportsRtl="false">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/MainActivityTheme" />
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/MainActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:alwaysRetainTaskState="true"
