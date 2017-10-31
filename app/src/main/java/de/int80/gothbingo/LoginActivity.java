@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText gameIDField = (EditText) findViewById(R.id.gameID);
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(PLAYER_NAME_KEY, playerNameField.getText().toString());
-        intent.putExtra(GAME_ID_KEY, gameIDField.getText().toString());
+        intent.putExtra(PLAYER_NAME_KEY, playerNameField.getText().toString().trim());
+        intent.putExtra(GAME_ID_KEY, gameIDField.getText().toString().trim());
         startActivity(intent);
     }
 
