@@ -148,6 +148,7 @@ public class WebSocketService extends Service {
     }
 
     public void startNewGame() {
+        currentGameNumber = 0;
         hasWinner = false;
         connectToServer();
     }
