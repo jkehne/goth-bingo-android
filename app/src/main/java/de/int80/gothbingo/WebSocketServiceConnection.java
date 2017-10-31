@@ -1,7 +1,6 @@
 package de.int80.gothbingo;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -44,6 +43,16 @@ public class WebSocketServiceConnection implements ServiceConnection {
         WebSocketService.LocalBinder binder = (WebSocketService.LocalBinder)iBinder;
         mService = binder.getService();
         mService.setParentActivity(mContext);
+
+        if (mService.hasWinner()) {
+            String winMessage;
+            if (mService.isLocalWin())
+                winMessage = mContext.getString(R.string.win_message);
+            else
+                winMessage = mService.getLastWinner() + " " + mContext.getString(R.string.lose_message);
+
+            mContext.displayWinMessage(winMessage);
+        }
     }
 
     @Override

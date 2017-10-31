@@ -47,6 +47,10 @@ public class WebSocketService extends Service {
         return hasWinner;
     }
 
+    public boolean isLocalWin() {
+        return localWin;
+    }
+
     private final LocalBinder mBinder = new LocalBinder();
     private MediaPlayer winSound;
     private MainActivity parentActivity;
@@ -56,6 +60,7 @@ public class WebSocketService extends Service {
     private int currentGameNumber;
     private String lastWinner;
     private boolean hasWinner;
+    private boolean localWin;
 
     public WebSocketService() {
     }
@@ -134,6 +139,7 @@ public class WebSocketService extends Service {
     public void handleLoss(int gameNumber, final String winner) {
         lastWinner = winner;
         currentGameNumber = gameNumber;
+        localWin = false;
 
         if (parentActivity != null) {
             parentActivity.runOnUiThread(new Runnable() {
@@ -151,6 +157,7 @@ public class WebSocketService extends Service {
     public void handleWin() {
         connection.send("WIN;" + gameID + ";" + currentGameNumber + ";" + playerName);
         currentGameNumber++;
+        localWin = true;
         playWinSoud();
         handleGameEnd();
     }
