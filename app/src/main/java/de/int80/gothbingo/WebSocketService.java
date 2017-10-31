@@ -100,13 +100,10 @@ public class WebSocketService extends Service {
     }
 
     private void moveToForeground() {
-        startForeground(1, makeNotification(getString(R.string.disconnected_notification_text), true));
+        startForeground(1, makeNotification(getString(R.string.service_notification_text), true));
     }
 
     public void connectToServer() {
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(1, makeNotification(getString(R.string.connecting_notification_text), true));
-
         Request.Builder requestBuilder = new Request.Builder();
         Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
 
@@ -146,8 +143,6 @@ public class WebSocketService extends Service {
     private void handleGameEnd() {
         hasWinner = true;
         connection.close(1000, null);
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(1, makeNotification(getString(R.string.disconnected_notification_text), true));
     }
 
     public void startNewGame() {
@@ -184,10 +179,5 @@ public class WebSocketService extends Service {
         localWin = true;
         playWinSoud();
         handleGameEnd();
-    }
-
-    public void handleConnectionEstablished() {
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(1, makeNotification(getString(R.string.connected_notification_text), true));
     }
 }

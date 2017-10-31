@@ -73,7 +73,6 @@ public class MessageHandler extends WebSocketListener {
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         webSocket.send("SIGNIN;" + parentService.getGameID());
-        parentService.handleConnectionEstablished();
     }
 
     @Override

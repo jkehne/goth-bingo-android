@@ -14,7 +14,5 @@
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Start</string>
 
-    <string name="connected_notification_text">Verbunden zum Server</string>
-    <string name="connecting_notification_text">Verbindung wird hergestellt...</string>
-    <string name="disconnected_notification_text">Verbindung getrennt</string>
+    <string name="service_notification_text">Hintergrunddienst läuft</string>
 </resources>
