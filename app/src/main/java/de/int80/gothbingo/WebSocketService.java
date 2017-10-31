@@ -19,6 +19,7 @@ import okhttp3.WebSocket;
 
 public class WebSocketService extends Service {
 
+    private static WebSocketService theInstance;
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
     public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";
 
@@ -30,6 +31,10 @@ public class WebSocketService extends Service {
 
     public void setParentActivity(MainActivity parentActivity) {
         this.parentActivity = parentActivity;
+    }
+
+    public static WebSocketService getInstance() {
+        return theInstance;
     }
 
     public String getGameID() {
@@ -57,7 +62,6 @@ public class WebSocketService extends Service {
     }
 
     private final LocalBinder mBinder = new LocalBinder();
-    private MediaPlayer winSound;
     private MainActivity parentActivity;
     private String playerName;
     private String gameID;
@@ -113,10 +117,9 @@ public class WebSocketService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        moveToForeground();
+        theInstance = this;
 
-        if (winSound == null)
-            winSound = MediaPlayer.create(getApplicationContext(), R.raw.win_sound);
+        moveToForeground();
 
         playerName = intent.getStringExtra(PLAYER_NAME_KEY);
         gameID = intent.getStringExtra(GAME_ID_KEY);
@@ -128,16 +131,15 @@ public class WebSocketService extends Service {
     }
 
     public void stop() {
-        winSound.release();
-
         connection.close(1001, null);
 
         stopForeground(true);
         stopSelf();
+        theInstance = null;
     }
 
     private void playWinSoud() {
-        winSound.start();
+        MediaPlayer.create(getApplicationContext(), R.raw.win_sound).start();
     }
 
     private void handleGameEnd() {

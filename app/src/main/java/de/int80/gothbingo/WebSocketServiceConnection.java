@@ -10,8 +10,12 @@ import android.os.IBinder;
  */
 
 public class WebSocketServiceConnection implements ServiceConnection {
+
     public WebSocketService getService() {
-        return mService;
+        if (WebSocketService.getInstance() != null)
+            return WebSocketService.getInstance();
+        else
+            return mService;
     }
 
     private WebSocketService mService;
@@ -22,20 +26,41 @@ public class WebSocketServiceConnection implements ServiceConnection {
 
         GameState state = mContext.getState();
 
+        if (WebSocketService.getInstance() != null)
+            return;
+
         Intent intent = new Intent(mContext, WebSocketService.class);
         intent.putExtra(WebSocketService.PLAYER_NAME_KEY, state.getPlayerName());
         intent.putExtra(WebSocketService.GAME_ID_KEY, state.getGameID());
         mContext.startService(intent);
+        mContext.bindService(intent, this, 0);
     }
 
-    public boolean connect() {
-        Intent intent = new Intent(mContext, WebSocketService.class);
-        return mContext.bindService(intent, this, 0);
+    public void connect() {
+        if (WebSocketService.getInstance() != null) {
+            WebSocketService.getInstance().setParentActivity(mContext);
+            handlemissedWin();
+        }
     }
 
     public void disconnect() {
-        mService.setParentActivity(null);
-        mContext.unbindService(this);
+        if (WebSocketService.getInstance() != null)
+            WebSocketService.getInstance().setParentActivity(null);
+    }
+
+    private void handlemissedWin() {
+        WebSocketService service = WebSocketService.getInstance();
+
+        if (service.hasWinner()) {
+            String winMessage;
+            if (service.isLocalWin())
+                winMessage = mContext.getString(R.string.win_message);
+            else
+                winMessage = service.getLastWinner() + " " + mContext.getString(R.string.lose_message);
+
+            mContext.displayWinMessage(winMessage);
+        }
+
     }
 
     @Override
@@ -44,15 +69,7 @@ public class WebSocketServiceConnection implements ServiceConnection {
         mService = binder.getService();
         mService.setParentActivity(mContext);
 
-        if (mService.hasWinner()) {
-            String winMessage;
-            if (mService.isLocalWin())
-                winMessage = mContext.getString(R.string.win_message);
-            else
-                winMessage = mService.getLastWinner() + " " + mContext.getString(R.string.lose_message);
-
-            mContext.displayWinMessage(winMessage);
-        }
+        handlemissedWin();
     }
 
     @Override
