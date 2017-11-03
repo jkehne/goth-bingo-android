@@ -106,6 +106,9 @@ public class WebSocketService extends Service {
         Notification notification = builder.build();
         if (!background) {
             notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
+            notification.ledARGB = getResources().getColor(R.color.colorPrimary);
+            notification.ledOffMS = 2000;
+            notification.ledOnMS = 1000;
         }
 
         return notification;
