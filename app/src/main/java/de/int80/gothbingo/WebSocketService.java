@@ -11,6 +11,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -75,6 +77,7 @@ public class WebSocketService extends Service {
     private boolean hasWinner;
     private boolean localWin;
     private boolean terminated;
+    private long lastConnect;
 
     public WebSocketService() {
     }
@@ -112,12 +115,34 @@ public class WebSocketService extends Service {
         startForeground(1, makeNotification(getString(R.string.service_notification_text), true));
     }
 
+    private void doConnect(OkHttpClient client, Request request) {
+        connection = client.newWebSocket(request, new MessageHandler(this));
+        lastConnect = System.currentTimeMillis();
+    }
+
+    private void scheduleDelayedConnect(final OkHttpClient client, final Request request) {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                doConnect(client, request);
+            }
+        };
+
+        try {
+            new Timer().schedule(task, lastConnect + 30000 - System.currentTimeMillis());
+        } catch (IllegalArgumentException e) {
+            //already expired
+            doConnect(client, request);
+        }
+    }
+
     public void connectToServer() {
         Request.Builder requestBuilder = new Request.Builder();
-        Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
+        final Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
 
-        OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
-        connection = client.newWebSocket(request, new MessageHandler(this));
+        final OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
+
+        scheduleDelayedConnect(client, request);
     }
 
     @Override
