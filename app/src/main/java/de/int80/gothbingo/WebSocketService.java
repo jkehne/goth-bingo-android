@@ -100,7 +100,7 @@ public class WebSocketService extends Service {
         builder.setContentTitle(getString(R.string.app_name));
         builder.setContentText(message);
         builder.setSmallIcon(R.drawable.ic_notification);
-        builder.setPriority(background ? NotificationCompat.PRIORITY_MIN : NotificationCompat.COLOR_DEFAULT);
+        builder.setPriority(background ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_DEFAULT);
         builder.setContentIntent(makeNotificationClickAction());
 
         Notification notification = builder.build();
