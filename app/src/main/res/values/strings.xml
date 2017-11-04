@@ -3,13 +3,16 @@
     <string name="app_name">Goth Bingo</string>
     <string name="win_message">You win!</string>
     <string name="lose_message">wins!</string>
+    <string name="free_space_text">Free space</string>
+
     <string name="play_again_button_text">Tap here to play again</string>
     <string name="refresh_button_text">Reload</string>
     <string name="exit_button_text">Exit</string>
-    <string name="free_space_text">Free space</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="suggest_button_text">Suggest new field</string>
+    <string name="suggest_dialog_text">Please enter your suggestion here</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Player name</string>
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Sign in</string>
@@ -19,4 +22,13 @@
     <string name="fields_downloading_message">Getting field contents, please wait</string>
     <string name="fields_download_failed_title">Download failed</string>
     <string name="fields_download_failed_message">Failed to download field contents. Is your internet connection working?</string>
+
+    <string name="submitting_suggestion_message">Submitting your suggestion, please wait</string>
+    <string name="submit_suggestion_failed_title">Submit failed</string>
+    <string name="submit_suggestion_failed_message">Failed to submit your suggestion. Is your internet connection working?</string>
+    <string name="submit_suggestion_success_title">Thank you</string>
+    <string name="submit_suggestion_success_message">Your suggestion has been recorded. Note that it must be approved by an administrator before it will appear in the game.</string>
+
+    <string name="ok_action_text">OK</string>
+    <string name="cancel_action_text">Cancel</string>
 </resources>

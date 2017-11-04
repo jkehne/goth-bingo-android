@@ -5,9 +5,11 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -207,6 +209,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ExitButton:
                 handleGameExit();
                 return true;
+            case R.id.SuggestButton:
+                handleSuggest();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -223,5 +228,33 @@ public class MainActivity extends AppCompatActivity {
         backgroundServiceConnection.getService().stop();
         unbindService(backgroundServiceConnection);
         finish();
+    }
+
+    private void handleSuggest() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.suggest_button_text);
+        //builder.setMessage(R.string.suggest_dialog_text);
+
+        final AppCompatEditText input = new AppCompatEditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint(R.string.suggest_dialog_text);
+        builder.setView(input);
+
+        builder.setPositiveButton(getResources().getString(R.string.ok_action_text), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                new SubmitFieldTask(MainActivity.this).execute(input.getText().toString());
+            }
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.cancel_action_text), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.show();
     }
 }

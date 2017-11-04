@@ -3,13 +3,16 @@
     <string name="app_name">Goth Bingo</string>
     <string name="win_message">Gewonnen!</string>
     <string name="lose_message">gewinnt!</string>
+    <string name="free_space_text">Freifeld</string>
+
     <string name="play_again_button_text">Hier klicken, um nochmal zu spielen</string>
     <string name="refresh_button_text">Reload</string>
     <string name="exit_button_text">Exit</string>
-    <string name="free_space_text">Freifeld</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="suggest_button_text">Neues Feld vorschlagen</string>
+    <string name="suggest_dialog_text">Bitte gib deinen Vorschlag hier ein</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Name</string>
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Start</string>
@@ -19,4 +22,13 @@
     <string name="fields_downloading_message">Lade Feldinhalte, bitte warten</string>
     <string name="fields_download_failed_title">Download fehlgeschlagen</string>
     <string name="fields_download_failed_message">Herunteladen der Feldinhalte fehlgeschlagen. Ist die Internetverbindung unterbrochen?</string>
+
+    <string name="submitting_suggestion_message">Vorschlag wird übertragen, bitte warten</string>
+    <string name="submit_suggestion_failed_title">Übertragung fehlgeschlagen</string>
+    <string name="submit_suggestion_failed_message">Übertragen des Vorchlags fehlgeschlagen. Ist die Internetverbindung unterbrochen?</string>
+    <string name="submit_suggestion_success_title">Vielen Dank</string>
+    <string name="submit_suggestion_success_message">Dein Vorschlag wurde gespeichert. Beachte, dass ein Vorschlag von einem Administrator freigeschaltet werden muss, bevor er im Spiel erscheint.</string>
+
+    <string name="ok_action_text">OK</string>
+    <string name="cancel_action_text">Abbrechen</string>
 </resources>
