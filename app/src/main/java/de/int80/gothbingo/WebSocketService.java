@@ -79,9 +79,6 @@ public class WebSocketService extends Service {
     private boolean terminated;
     private long lastConnect;
 
-    public WebSocketService() {
-    }
-
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
