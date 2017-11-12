@@ -3,11 +3,7 @@ package de.int80.gothbingo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by jens on 29.09.17.
- */
-
-public class GameState implements Serializable {
+class GameState implements Serializable {
     private boolean checkedFields[][] = {
             {false, false, false, false, false},
             {false, false, false, false, false},
@@ -16,44 +12,44 @@ public class GameState implements Serializable {
             {false, false, false, false, false}
     };
 
-    public void setAllFields(ArrayList<String> allFields) {
+    void setAllFields(ArrayList<String> allFields) {
         this.allFields = allFields;
     }
 
-    public ArrayList<String> getAllFields() {
+    ArrayList<String> getAllFields() {
         return allFields;
     }
 
     private ArrayList<String> allFields;
 
-    public String getPlayerName() {
+    String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
+    void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
-    public String getGameID() {
+    String getGameID() {
         return gameID;
     }
 
-    public void setGameID(String gameID) {
+    void setGameID(String gameID) {
         this.gameID = gameID;
     }
 
     private String playerName;
     private String gameID;
 
-    public void toggleField(int x, int y) {
-        checkedFields[x][y] = checkedFields[x][y] ? false : true;
+    void toggleField(int x, int y) {
+        checkedFields[x][y] = !checkedFields[x][y];
     }
 
-    public boolean isFieldChecked(int x, int y) {
+    boolean isFieldChecked(int x, int y) {
         return checkedFields[x][y];
     }
 
-    public boolean hasFullRow() {
+    boolean hasFullRow() {
         int i, j;
         boolean row;
         boolean column;

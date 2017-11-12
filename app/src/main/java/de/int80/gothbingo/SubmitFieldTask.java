@@ -1,5 +1,6 @@
 package de.int80.gothbingo;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,18 +16,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-/**
- * Created by jens on 04.11.17.
- */
-
 public class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
 
     private static String TAG = SubmitFieldTask.class.getSimpleName();
 
     private ProgressDialog dialog;
+    @SuppressLint("StaticFieldLeak")
     private Context parentActivity;
 
-    public SubmitFieldTask(Context activity) {
+    SubmitFieldTask(Context activity) {
         dialog = new ProgressDialog(activity);
         dialog.setMessage(activity.getString(R.string.submitting_suggestion_message));
 

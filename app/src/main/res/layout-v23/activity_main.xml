@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
+        android:elevation="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
@@ -47,11 +48,12 @@
                 android:layout_weight="1"
                 android:background="@color/fieldBackgroundColor"
                 android:clickable="true"
-                android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="0"
-                app:coordY="0" />
+                app:coordY="0"
+                android:focusable="true" />
 
             <de.int80.gothbingo.BingoFieldView
                 android:id="@+id/field21"
@@ -64,6 +66,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="1"
                 app:coordY="0" />
 
@@ -78,6 +81,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="2"
                 app:coordY="0" />
 
@@ -92,6 +96,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="3"
                 app:coordY="0" />
 
@@ -106,6 +111,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="4"
                 app:coordY="0" />
         </TableRow>
@@ -130,6 +136,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="0"
                 app:coordY="1" />
 
@@ -144,6 +151,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="1"
                 app:coordY="1" />
 
@@ -158,6 +166,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="2"
                 app:coordY="1" />
 
@@ -172,6 +181,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="3"
                 app:coordY="1" />
 
@@ -186,6 +196,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="4"
                 app:coordY="1" />
         </TableRow>
@@ -210,6 +221,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="0"
                 app:coordY="2" />
 
@@ -224,6 +236,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="1"
                 app:coordY="2" />
 
@@ -249,6 +262,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="3"
                 app:coordY="2" />
 
@@ -263,6 +277,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="4"
                 app:coordY="2" />
         </TableRow>
@@ -287,6 +302,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="0"
                 app:coordY="3" />
 
@@ -301,6 +317,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="1"
                 app:coordY="3" />
 
@@ -315,6 +332,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="2"
                 app:coordY="3" />
 
@@ -329,6 +347,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="3"
                 app:coordY="3" />
 
@@ -343,6 +362,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="4"
                 app:coordY="3" />
         </TableRow>
@@ -367,6 +387,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="0"
                 app:coordY="4" />
 
@@ -381,6 +402,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="1"
                 app:coordY="4" />
 
@@ -395,6 +417,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="2"
                 app:coordY="4" />
 
@@ -409,6 +432,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="3"
                 app:coordY="4" />
 
@@ -423,6 +447,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:textColor="@color/fieldTextColor"
+                android:hyphenationFrequency="full"
                 app:coordX="4"
                 app:coordY="4" />
 

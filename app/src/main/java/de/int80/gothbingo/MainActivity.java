@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
     private final String STATE_KEY = GameState.class.getName();
 
     public GameState getState() {
@@ -66,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
         backgroundServiceConnection.connect();
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(2);
+        if (manager != null) {
+            manager.cancel(2);
+        } else {
+            Log.e(TAG, "Failed to get notification manager");
+        }
     }
 
     @Override
@@ -168,8 +175,10 @@ public class MainActivity extends AppCompatActivity {
         } else
             fields = state.getAllFields();
 
-        if (fields == null)
+        if (fields == null) {
             showDownloadFailureDialog();
+            return;
+        }
 
         if (!reload) {
             Collections.shuffle(fields);

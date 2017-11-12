@@ -16,7 +16,6 @@ public class LoginActivity extends AppCompatActivity {
 
     static final String PLAYER_NAME_KEY = LoginActivity.class.getName() + ".PLAYER_NAME";
     static final String GAME_ID_KEY = LoginActivity.class.getName() + ".GAME_ID";
-    private static final String LOG = LoginActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

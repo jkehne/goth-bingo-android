@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,11 +22,12 @@ import okhttp3.WebSocket;
 
 public class WebSocketService extends Service {
 
+    private static final String TAG = WebSocketService.class.getSimpleName();
     private static WebSocketService theInstance;
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
     public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";
 
-    public class LocalBinder extends Binder {
+    class LocalBinder extends Binder {
         WebSocketService getService() {
             return WebSocketService.this;
         }
@@ -169,7 +171,7 @@ public class WebSocketService extends Service {
         theInstance = null;
     }
 
-    private void playWinSoud() {
+    private void playWinSound() {
         MediaPlayer.create(getApplicationContext(), R.raw.win_sound).start();
     }
 
@@ -200,10 +202,14 @@ public class WebSocketService extends Service {
             });
         } else {
             NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.notify(2, makeNotification(winMessage, false));
+            if (manager != null) {
+                manager.notify(2, makeNotification(winMessage, false));
+            } else {
+                Log.e(TAG, "Failed to get notification manager");
+            }
         }
 
-        playWinSoud();
+        playWinSound();
         handleGameEnd();
     }
 
@@ -211,7 +217,7 @@ public class WebSocketService extends Service {
         connection.send("WIN;" + gameID + ";" + currentGameNumber + ";" + playerName);
         currentGameNumber++;
         localWin = true;
-        playWinSoud();
+        playWinSound();
         handleGameEnd();
     }
 }

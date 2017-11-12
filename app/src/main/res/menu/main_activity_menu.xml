@@ -7,17 +7,17 @@
         android:icon="@drawable/ic_add_circle_outline_white_24dp"
         android:title="@string/suggest_button_text"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/RefreshButton"
         android:icon="@drawable/ic_action_refresh"
         android:title="@string/refresh_button_text"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ExitButton"
         android:icon="@drawable/ic_action_exit_to_app"
         android:title="@string/exit_button_text"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

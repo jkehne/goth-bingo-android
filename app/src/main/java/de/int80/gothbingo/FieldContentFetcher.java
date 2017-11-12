@@ -1,5 +1,6 @@
 package de.int80.gothbingo;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,19 +18,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by jens on 02.10.17.
- */
-
 public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
     private ProgressDialog dialog;
     private static final String fieldsURL = "https://int80.de/bingo/js/fields.php?pure_json=1";
 
+    @SuppressLint("StaticFieldLeak")
     private MainActivity parentActivity;
 
-    public FieldContentFetcher(MainActivity activity) {
+    FieldContentFetcher(MainActivity activity) {
         dialog = new ProgressDialog(activity);
         dialog.setMessage(activity.getString(R.string.fields_downloading_message));
 
@@ -42,6 +40,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         super.onPreExecute();
     }
 
+    @SuppressWarnings("ConstantConditions")
     private String getContentsString(String url) throws IOException {
         GameState state = parentActivity.getState();
 
@@ -56,7 +55,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
 
         if (!response.isSuccessful())
             throw new IOException();
-        else if (response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED && state.getAllFields() != null)
+        else if ((response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED) && (state.getAllFields() != null))
             return "";
 
         return response.body().string();
@@ -64,7 +63,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
 
     private ArrayList<String> buildFieldsList(String fieldsString) {
         int i;
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(fieldsString);

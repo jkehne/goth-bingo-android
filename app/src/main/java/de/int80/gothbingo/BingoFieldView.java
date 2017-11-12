@@ -2,15 +2,10 @@ package de.int80.gothbingo;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
-
-/**
- * Created by jens on 29.09.17.
- */
 
 public class BingoFieldView extends AppCompatTextView implements View.OnClickListener {
     private int x;

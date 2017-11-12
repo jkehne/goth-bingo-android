@@ -7,15 +7,11 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-/**
- * Created by jens on 31.10.17.
- */
-
 public class MessageHandler extends WebSocketListener {
     private static final String TAG = MessageHandler.class.getSimpleName();
     private WebSocketService parentService;
 
-    public MessageHandler(WebSocketService context) {
+    MessageHandler(WebSocketService context) {
         parentService = context;
     }
 
