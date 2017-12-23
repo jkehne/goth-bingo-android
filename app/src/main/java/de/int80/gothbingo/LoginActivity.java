@@ -1,6 +1,7 @@
 package de.int80.gothbingo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -17,11 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     static final String PLAYER_NAME_KEY = LoginActivity.class.getName() + ".PLAYER_NAME";
     static final String GAME_ID_KEY = LoginActivity.class.getName() + ".GAME_ID";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+    private void setEventListeners() {
         Button signInButton = (Button)findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,14 +37,63 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void restoreLoginInfo() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+
+        EditText playerNameField = (EditText)findViewById(R.id.playerName);
+        playerNameField.setText(prefs.getString(PLAYER_NAME_KEY, ""));
+
+        EditText gameIDField = (EditText)findViewById(R.id.gameID);
+        gameIDField.setText(prefs.getString(GAME_ID_KEY, ""));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        setEventListeners();
+
+        restoreLoginInfo();
+    }
+
+    private void saveLoginInfo(String playerName, String gameID) {
+        SharedPreferences.Editor prefs = getPreferences(MODE_PRIVATE).edit();
+
+        if (playerName != null)
+            prefs.putString(PLAYER_NAME_KEY, playerName);
+
+        if (gameID != null)
+            prefs.putString(GAME_ID_KEY, gameID);
+
+        prefs.apply();
+    }
+
+    private String extractFieldContents(int fieldID) {
+        EditText field = (EditText) findViewById(fieldID);
+
+        if (field == null)
+            return null;
+
+        return field.getText().toString().trim();
+    }
+
     private void handleSignIn() {
-        EditText playerNameField = (EditText) findViewById(R.id.playerName);
-        EditText gameIDField = (EditText) findViewById(R.id.gameID);
+        String playerName = extractFieldContents(R.id.playerName);
+        String gameID = extractFieldContents(R.id.gameID);
+
+        saveLoginInfo(playerName, gameID);
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(PLAYER_NAME_KEY, playerNameField.getText().toString().trim());
-        intent.putExtra(GAME_ID_KEY, gameIDField.getText().toString().trim());
+        intent.putExtra(PLAYER_NAME_KEY, playerName);
+        intent.putExtra(GAME_ID_KEY, gameID);
         startActivity(intent);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        saveLoginInfo(extractFieldContents(R.id.playerName), extractFieldContents(R.id.gameID));
+    }
 }
