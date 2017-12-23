@@ -80,7 +80,7 @@ public class MessageHandler extends WebSocketListener {
     public void onFailure(WebSocket webSocket, Throwable t, @Nullable Response response) {
         if (!parentService.hasWinner() && !parentService.isTerminated()) {
             Log.e(TAG, "Lost connection to server: " + ((response != null) ? response.message() : ""), t);
-            parentService.connectToServer();
+            parentService.connectToServer(true);
         }
     }
 }

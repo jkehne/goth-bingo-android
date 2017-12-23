@@ -138,13 +138,16 @@ public class WebSocketService extends Service {
         }
     }
 
-    public void connectToServer() {
+    public void connectToServer(boolean delayed) {
         Request.Builder requestBuilder = new Request.Builder();
         final Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
 
         final OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
 
-        scheduleDelayedConnect(client, request);
+        if (delayed)
+            scheduleDelayedConnect(client, request);
+        else
+            doConnect(client, request);
     }
 
     @Override
@@ -157,7 +160,7 @@ public class WebSocketService extends Service {
         gameID = intent.getStringExtra(GAME_ID_KEY);
 
         if (connection == null)
-            connectToServer();
+            connectToServer(false);
 
         return START_STICKY;
     }
@@ -183,7 +186,7 @@ public class WebSocketService extends Service {
     public void startNewGame() {
         currentGameNumber = 0;
         hasWinner = false;
-        connectToServer();
+        connectToServer(false);
     }
 
     public void handleLoss(int gameNumber, String winner) {
