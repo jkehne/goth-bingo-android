@@ -18,7 +18,8 @@
         <activity
             android:name=".LoginActivity"
             android:alwaysRetainTaskState="true"
-            android:theme="@style/SigninActivityTheme">
+            android:theme="@style/SigninActivityTheme"
+            android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
