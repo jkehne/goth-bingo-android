@@ -57,18 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         restoreLoginInfo();
     }
 
-    private void saveLoginInfo(String playerName, String gameID) {
-        SharedPreferences.Editor prefs = getPreferences(MODE_PRIVATE).edit();
-
-        if (playerName != null)
-            prefs.putString(PLAYER_NAME_KEY, playerName);
-
-        if (gameID != null)
-            prefs.putString(GAME_ID_KEY, gameID);
-
-        prefs.apply();
-    }
-
     private String extractFieldContents(int fieldID) {
         EditText field = (EditText) findViewById(fieldID);
 
@@ -79,15 +67,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleSignIn() {
-        String playerName = extractFieldContents(R.id.playerName);
-        String gameID = extractFieldContents(R.id.gameID);
-
-        saveLoginInfo(playerName, gameID);
-
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(PLAYER_NAME_KEY, playerName);
-        intent.putExtra(GAME_ID_KEY, gameID);
+        intent.putExtra(PLAYER_NAME_KEY, extractFieldContents(R.id.playerName));
+        intent.putExtra(GAME_ID_KEY, extractFieldContents(R.id.gameID));
         startActivity(intent);
+    }
+
+    private void saveLoginInfo(String playerName, String gameID) {
+        SharedPreferences.Editor prefs = getPreferences(MODE_PRIVATE).edit();
+
+        if (playerName != null)
+            prefs.putString(PLAYER_NAME_KEY, playerName);
+
+        if (gameID != null)
+            prefs.putString(GAME_ID_KEY, gameID);
+
+        prefs.apply();
     }
 
     @Override
