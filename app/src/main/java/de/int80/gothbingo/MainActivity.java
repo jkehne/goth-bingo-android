@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
         } else {
-            setFieldContents(state.getAllFields(), true);
+            setFieldContents(state.getAllFields(), true, null);
         }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -151,9 +151,14 @@ public class MainActivity extends AppCompatActivity {
         outState.putSerializable(STATE_KEY, state);
     }
 
-    private void showDownloadFailureDialog() {
+    public void showDownloadFailureDialog(Throwable t) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.fields_download_failed_message);
+        builder.setMessage(
+                getString(R.string.fields_download_failed_message)
+                        + " ("
+                        + t.getLocalizedMessage()
+                        + ")"
+        );
         builder.setTitle(R.string.fields_download_failed_title);
         builder.setPositiveButton(getResources().getString(R.string.ok_action_text), new DialogInterface.OnClickListener() {
             @Override
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public void setFieldContents(ArrayList<String> fields, boolean reload) {
+    public void setFieldContents(ArrayList<String> fields, boolean reload, Throwable error) {
         int row, col;
         ViewGroup root, rowHandle;
         BingoFieldView field;
@@ -176,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             fields = state.getAllFields();
 
         if (fields == null) {
-            showDownloadFailureDialog();
+            showDownloadFailureDialog(error);
             return;
         }
 

@@ -23,6 +23,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
 
     private ProgressDialog dialog;
     private static final String fieldsURL = "https://int80.de/bingo/js/fields.php?pure_json=1";
+    private Throwable lastError = null;
 
     @SuppressLint("StaticFieldLeak")
     private MainActivity parentActivity;
@@ -54,7 +55,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         Response response = client.newCall(builder.build()).execute();
 
         if (!response.isSuccessful())
-            throw new IOException();
+            throw new IOException(response.message());
         else if ((response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED) && (state.getAllFields() != null))
             return "";
 
@@ -74,7 +75,8 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
                 result.add(squares.getJSONObject(i).getString("square"));
             }
         } catch (JSONException e) {
-            Log.e(TAG, "JSON parsing failed: " + e.toString());
+            Log.e(TAG, "JSON parsing failed: ", e);
+            lastError = e;
             return null;
         }
 
@@ -89,6 +91,8 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         try {
             fieldsString = getContentsString(fieldsURL);
         } catch (IOException e) {
+            Log.e(TAG, "Field download failed: ", e);
+            lastError = e;
             return null;
         }
 
@@ -102,7 +106,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
     protected void onPostExecute(ArrayList<String> result) {
         super.onPostExecute(result);
 
-        parentActivity.setFieldContents(result, false);
+        parentActivity.setFieldContents(result, false, lastError);
 
         if (dialog.isShowing())
             dialog.dismiss();
