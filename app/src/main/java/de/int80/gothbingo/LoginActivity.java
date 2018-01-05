@@ -3,6 +3,7 @@ package de.int80.gothbingo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         restoreLoginInfo();
     }
 
+    @Nullable
     private String extractFieldContents(int fieldID) {
         EditText field = (EditText) findViewById(fieldID);
 
