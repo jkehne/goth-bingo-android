@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
         } else {
-            setFieldContents(state.getAllFields(), true, null);
+            setFieldContents(null, true, null);
         }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
