@@ -19,6 +19,7 @@ import okhttp3.Response;
 public class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
 
     private static String TAG = SubmitFieldTask.class.getSimpleName();
+    private Throwable lastError = null;
 
     private ProgressDialog dialog;
     @SuppressLint("StaticFieldLeak")
@@ -54,26 +55,31 @@ public class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
             response = new OkHttpClient().newCall(requestBuilder.build()).execute();
         } catch (IOException e) {
             Log.e(TAG, "Submit failed", e);
+            lastError = e;
             return false;
+        }
+
+        if (!response.isSuccessful()) {
+            lastError = new IOException(response.message());
+            Log.e(TAG, "Submit failed", lastError);
         }
 
         return response.isSuccessful();
     }
 
-    @Override
-    protected void onPostExecute(Boolean success) {
-        super.onPostExecute(success);
-
-        if (dialog.isShowing())
-            dialog.dismiss();
-
+    private void showResultDialog(boolean success) {
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
+
         if (success) {
             builder.setTitle(R.string.submit_suggestion_success_title);
             builder.setMessage(R.string.submit_suggestion_success_message);
         } else {
             builder.setTitle(R.string.submit_suggestion_failed_title);
-            builder.setMessage(R.string.submit_suggestion_failed_message);
+            builder.setMessage(
+                    parentActivity.getString(R.string.submit_suggestion_failed_message)
+                            + " ("
+                            + lastError.getLocalizedMessage()
+                            + ")");
         }
 
         builder.setPositiveButton(parentActivity.getResources().getString(R.string.ok_action_text), new DialogInterface.OnClickListener() {
@@ -84,5 +90,15 @@ public class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
         });
 
         builder.show();
+    }
+
+    @Override
+    protected void onPostExecute(Boolean success) {
+        super.onPostExecute(success);
+
+        if (dialog.isShowing())
+            dialog.dismiss();
+
+        showResultDialog(success);
     }
 }
