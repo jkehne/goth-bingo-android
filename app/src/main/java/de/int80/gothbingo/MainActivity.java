@@ -11,11 +11,14 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -246,12 +249,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleSuggest() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         builder.setTitle(R.string.suggest_button_text);
-        //builder.setMessage(R.string.suggest_dialog_text);
 
         final AppCompatEditText input = new AppCompatEditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint(R.string.suggest_dialog_text);
+        input.setImeOptions(EditorInfo.IME_ACTION_DONE);
         builder.setView(input);
 
         builder.setPositiveButton(getResources().getString(R.string.ok_action_text), new DialogInterface.OnClickListener() {
@@ -269,6 +273,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        builder.show();
+        final AlertDialog dialog = builder.create();
+
+        //noinspection ConstantConditions
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                dialog.dismiss();
+                new SubmitFieldTask(MainActivity.this).execute(input.getText().toString());
+                return true;
+            }
+        });
+
+        dialog.show();
     }
 }
