@@ -6,12 +6,15 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -175,7 +178,27 @@ public class WebSocketService extends Service {
     }
 
     private void playWinSound() {
-        MediaPlayer.create(getApplicationContext(), R.raw.win_sound).start();
+        AssetFileDescriptor afd = getResources().openRawResourceFd(R.raw.win_sound);
+
+        MediaPlayer player = new MediaPlayer();
+        player.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
+
+        try {
+            player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            player.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        player.start();
     }
 
     private void handleGameEnd() {
