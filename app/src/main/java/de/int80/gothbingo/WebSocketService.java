@@ -7,9 +7,11 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -181,7 +183,15 @@ public class WebSocketService extends Service {
         AssetFileDescriptor afd = getResources().openRawResourceFd(R.raw.win_sound);
 
         MediaPlayer player = new MediaPlayer();
-        player.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes attr = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
+                    .build();
+            player.setAudioAttributes(attr);
+        } else
+            player.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
 
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
