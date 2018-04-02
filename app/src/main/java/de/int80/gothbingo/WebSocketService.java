@@ -1,19 +1,23 @@
 package de.int80.gothbingo;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.Resources;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.io.IOException;
@@ -31,6 +35,8 @@ public class WebSocketService extends Service {
     private static WebSocketService theInstance;
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
     public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";
+    private static final String BACKGROUND_NOTIFICATION_CHANNEL = "background_notification";
+    private static final String FOREGROND_NOTIFICATION_CHANNEL = "win_message";
 
     class LocalBinder extends Binder {
         WebSocketService getService() {
@@ -91,6 +97,37 @@ public class WebSocketService extends Service {
         return mBinder;
     }
 
+    private Uri notificationSound() {
+        Resources res = getResources();
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + res.getResourcePackageName(R.raw.win_sound)
+                + '/' + res.getResourceTypeName(R.raw.win_sound)
+                + '/' + res.getResourceEntryName(R.raw.win_sound));
+    }
+
+    private void makeNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+            NotificationChannel backgroundNotificationChannel = new NotificationChannel(
+                    BACKGROUND_NOTIFICATION_CHANNEL,
+                    getString(R.string.background_notification_channel_name),
+                    NotificationManager.IMPORTANCE_MIN);
+
+            manager.createNotificationChannel(backgroundNotificationChannel);
+
+            NotificationChannel foregroundNotificationChannel = new NotificationChannel(
+                    FOREGROND_NOTIFICATION_CHANNEL,
+                    getString(R.string.foreground_notification_channel_name),
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            foregroundNotificationChannel.enableLights(true);
+            foregroundNotificationChannel.setLightColor(ContextCompat.getColor(theInstance, R.color.colorPrimary));
+            foregroundNotificationChannel.setSound(notificationSound(), null);
+
+            manager.createNotificationChannel(foregroundNotificationChannel);
+        }
+    }
+
     private PendingIntent makeNotificationClickAction() {
         Intent resultIntent = new Intent(this, LoginActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
@@ -100,17 +137,21 @@ public class WebSocketService extends Service {
     }
 
     private Notification makeNotification (String message, boolean background) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle(getString(R.string.app_name));
         builder.setContentText(message);
         builder.setSmallIcon(R.drawable.ic_notification);
-        builder.setPriority(background ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_DEFAULT);
+        builder.setPriority(background ? Notification.PRIORITY_MIN : Notification.PRIORITY_DEFAULT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            builder.setChannelId(background ? BACKGROUND_NOTIFICATION_CHANNEL : FOREGROND_NOTIFICATION_CHANNEL);
         builder.setContentIntent(makeNotificationClickAction());
+        if (!background)
+            builder.setSound(notificationSound());
 
         Notification notification = builder.build();
         if (!background) {
             notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
-            notification.ledARGB = getResources().getColor(R.color.colorPrimary);
+            notification.ledARGB = ContextCompat.getColor(theInstance, R.color.colorPrimary);
             notification.ledOffMS = 2000;
             notification.ledOnMS = 1000;
         }
@@ -158,6 +199,8 @@ public class WebSocketService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         theInstance = this;
+
+        makeNotificationChannels();
 
         moveToForeground();
 
@@ -236,6 +279,7 @@ public class WebSocketService extends Service {
                     parentActivity.displayWinMessage(winMessage);
                 }
             });
+            playWinSound();
         } else {
             NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             if (manager != null) {
@@ -245,7 +289,6 @@ public class WebSocketService extends Service {
             }
         }
 
-        playWinSound();
         handleGameEnd();
     }
 

@@ -31,4 +31,7 @@
 
     <string name="ok_action_text">OK</string>
     <string name="cancel_action_text">Cancel</string>
+
+    <string name="foreground_notification_channel_name">Win messages</string>
+    <string name="background_notification_channel_name">Background service notification</string>
 </resources>
