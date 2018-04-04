@@ -12,7 +12,6 @@
     <string name="suggest_dialog_text">Bitte gib deinen Vorschlag hier ein</string>
 
     <!-- Strings related to login -->
-    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Name</string>
     <string name="prompt_password">Game ID</string>
     <string name="action_sign_in">Start</string>
