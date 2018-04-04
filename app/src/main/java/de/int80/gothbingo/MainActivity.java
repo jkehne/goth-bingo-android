@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             setFieldContents(null, true, null);
         }
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         backgroundServiceConnection = new WebSocketServiceConnection(this);
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.WinMessage)).setText(message);
         findViewById(R.id.WinMessageOverlay).setVisibility(View.VISIBLE);
-        ViewGroup parent = (ViewGroup)findViewById(R.id.BingoFieldLayout);
+        ViewGroup parent = findViewById(R.id.BingoFieldLayout);
         for (row = 0; row < parent.getChildCount(); ++row) {
             rowHandle = (TableRow)parent.getChildAt(row);
             for (column = 0; column < rowHandle.getChildCount(); ++column) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         int row, column;
         TableRow rowHandle;
 
-        ViewGroup parent = (ViewGroup)findViewById(R.id.BingoFieldLayout);
+        ViewGroup parent = findViewById(R.id.BingoFieldLayout);
 
         for (row = 0; row < parent.getChildCount(); ++row) {
             rowHandle = (TableRow)parent.getChildAt(row);
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             resetClickedState();
         }
 
-        root = (ViewGroup) findViewById(R.id.BingoFieldLayout);
+        root = findViewById(R.id.BingoFieldLayout);
 
         for (row = 0; row < root.getChildCount(); ++row) {
             rowHandle = (ViewGroup) root.getChildAt(row);

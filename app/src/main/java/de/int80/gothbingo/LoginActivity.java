@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     static final String GAME_ID_KEY = LoginActivity.class.getName() + ".GAME_ID";
 
     private void setEventListeners() {
-        Button signInButton = (Button)findViewById(R.id.sign_in_button);
+        Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        EditText gameIDField = (EditText)findViewById(R.id.gameID);
+        EditText gameIDField = findViewById(R.id.gameID);
         gameIDField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
     private void restoreLoginInfo() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 
-        EditText playerNameField = (EditText)findViewById(R.id.playerName);
+        EditText playerNameField = findViewById(R.id.playerName);
         playerNameField.setText(prefs.getString(PLAYER_NAME_KEY, ""));
 
-        EditText gameIDField = (EditText)findViewById(R.id.gameID);
+        EditText gameIDField = findViewById(R.id.gameID);
         gameIDField.setText(prefs.getString(GAME_ID_KEY, ""));
     }
 
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Nullable
     private String extractFieldContents(int fieldID) {
-        EditText field = (EditText) findViewById(fieldID);
+        EditText field = findViewById(fieldID);
 
         if (field == null)
             return null;
