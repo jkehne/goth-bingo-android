@@ -9,7 +9,7 @@ import android.os.IBinder;
  * Created by jens on 27.10.17.
  */
 
-public class WebSocketServiceConnection implements ServiceConnection {
+class WebSocketServiceConnection implements ServiceConnection {
 
     public WebSocketService getService() {
         if (WebSocketService.getInstance() != null)
@@ -21,7 +21,7 @@ public class WebSocketServiceConnection implements ServiceConnection {
     private WebSocketService mService;
     private MainActivity mContext;
 
-    public WebSocketServiceConnection(MainActivity context) {
+    WebSocketServiceConnection(MainActivity context) {
         mContext = context;
 
         GameState state = mContext.getState();

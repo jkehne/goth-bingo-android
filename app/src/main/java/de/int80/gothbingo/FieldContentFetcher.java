@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
+class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
     private ProgressDialog dialog;

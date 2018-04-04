@@ -7,7 +7,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class MessageHandler extends WebSocketListener {
+class MessageHandler extends WebSocketListener {
     private static final String TAG = MessageHandler.class.getSimpleName();
     private WebSocketService parentService;
 

@@ -16,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
+class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
 
     private static String TAG = SubmitFieldTask.class.getSimpleName();
     private Throwable lastError = null;

@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putSerializable(STATE_KEY, state);
     }
 
-    public void showDownloadFailureDialog(Throwable t) {
+    private void showDownloadFailureDialog(Throwable t) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(
                 getString(R.string.fields_download_failed_message)
