@@ -42,7 +42,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
     }
 
     @SuppressWarnings("ConstantConditions")
-    private String getContentsString(String url) throws IOException {
+    private String getContentsString() throws IOException {
         GameState state = parentActivity.getState();
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
@@ -50,7 +50,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         OkHttpClient client = clientBuilder.build();
 
         Request.Builder builder = new Request.Builder();
-        builder.url(url);
+        builder.url(fieldsURL);
 
         Response response = client.newCall(builder.build()).execute();
 
@@ -89,7 +89,7 @@ public class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>
         ArrayList<String> result = null;
 
         try {
-            fieldsString = getContentsString(fieldsURL);
+            fieldsString = getContentsString();
         } catch (IOException e) {
             Log.e(TAG, "Field download failed: ", e);
             lastError = e;
