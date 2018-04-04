@@ -18,12 +18,12 @@ import okhttp3.Response;
 
 class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
 
-    private static String TAG = SubmitFieldTask.class.getSimpleName();
+    private static final String TAG = SubmitFieldTask.class.getSimpleName();
     private Throwable lastError = null;
 
-    private ProgressDialog dialog;
+    private final ProgressDialog dialog;
     @SuppressLint("StaticFieldLeak")
-    private Context parentActivity;
+    private final Context parentActivity;
 
     SubmitFieldTask(Context activity) {
         dialog = new ProgressDialog(activity);

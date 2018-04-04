@@ -9,7 +9,7 @@ import okhttp3.WebSocketListener;
 
 class MessageHandler extends WebSocketListener {
     private static final String TAG = MessageHandler.class.getSimpleName();
-    private WebSocketService parentService;
+    private final WebSocketService parentService;
 
     MessageHandler(WebSocketService context) {
         parentService = context;

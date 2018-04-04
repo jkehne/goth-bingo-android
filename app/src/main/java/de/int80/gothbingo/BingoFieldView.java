@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class BingoFieldView extends AppCompatTextView implements View.OnClickListener {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public int getFieldX() {
         return x;
@@ -25,7 +25,7 @@ public class BingoFieldView extends AppCompatTextView implements View.OnClickLis
 
     private boolean checked = false;
 
-    private MainActivity parent;
+    private final MainActivity parent;
 
     public BingoFieldView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

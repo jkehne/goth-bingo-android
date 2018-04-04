@@ -19,7 +19,7 @@ class WebSocketServiceConnection implements ServiceConnection {
     }
 
     private WebSocketService mService;
-    private MainActivity mContext;
+    private final MainActivity mContext;
 
     WebSocketServiceConnection(MainActivity context) {
         mContext = context;

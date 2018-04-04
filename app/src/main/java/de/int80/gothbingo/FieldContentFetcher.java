@@ -21,12 +21,12 @@ import okhttp3.Response;
 class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
-    private ProgressDialog dialog;
+    private final ProgressDialog dialog;
     private static final String fieldsURL = "https://int80.de/bingo/js/fields.php?pure_json=1";
     private Throwable lastError = null;
 
     @SuppressLint("StaticFieldLeak")
-    private MainActivity parentActivity;
+    private final MainActivity parentActivity;
 
     FieldContentFetcher(MainActivity activity) {
         dialog = new ProgressDialog(activity);

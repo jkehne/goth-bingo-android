@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 class GameState implements Serializable {
-    private boolean checkedFields[][] = {
+    private final boolean[][] checkedFields = {
             {false, false, false, false, false},
             {false, false, false, false, false},
             {false, false, true,  false, false},
