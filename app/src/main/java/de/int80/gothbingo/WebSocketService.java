@@ -36,7 +36,7 @@ public class WebSocketService extends Service {
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
     public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";
     private static final String BACKGROUND_NOTIFICATION_CHANNEL = "background_notification";
-    private static final String FOREGROND_NOTIFICATION_CHANNEL = "win_message";
+    private static final String FOREGROUND_NOTIFICATION_CHANNEL = "win_message";
 
     class LocalBinder extends Binder {
         WebSocketService getService() {
@@ -117,7 +117,7 @@ public class WebSocketService extends Service {
             manager.createNotificationChannel(backgroundNotificationChannel);
 
             NotificationChannel foregroundNotificationChannel = new NotificationChannel(
-                    FOREGROND_NOTIFICATION_CHANNEL,
+                    FOREGROUND_NOTIFICATION_CHANNEL,
                     getString(R.string.foreground_notification_channel_name),
                     NotificationManager.IMPORTANCE_DEFAULT);
             foregroundNotificationChannel.enableLights(true);
@@ -143,7 +143,7 @@ public class WebSocketService extends Service {
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setPriority(background ? Notification.PRIORITY_MIN : Notification.PRIORITY_DEFAULT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            builder.setChannelId(background ? BACKGROUND_NOTIFICATION_CHANNEL : FOREGROND_NOTIFICATION_CHANNEL);
+            builder.setChannelId(background ? BACKGROUND_NOTIFICATION_CHANNEL : FOREGROUND_NOTIFICATION_CHANNEL);
         builder.setContentIntent(makeNotificationClickAction());
         if (!background)
             builder.setSound(notificationSound());

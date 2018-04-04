@@ -16,7 +16,7 @@ public class MessageHandler extends WebSocketListener {
     }
 
     private void handleUnknownMessage(String message) {
-        Log.e(TAG, "Unkown message received: " + message);
+        Log.e(TAG, "Unknown message received: " + message);
     }
 
     private void handleSignin(String params) {
