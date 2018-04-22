@@ -1,7 +1,5 @@
 package de.int80.gothbingo;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,28 +19,26 @@ import okhttp3.Response;
 class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
-    private final ProgressDialog dialog;
     private static final String fieldsURL = "https://int80.de/bingo/js/fields.php?pure_json=1";
     private Throwable lastError = null;
 
-    @SuppressLint("StaticFieldLeak")
-    private final MainActivity parentActivity;
+    private static boolean running;
 
-    FieldContentFetcher(MainActivity activity) {
-        dialog = new ProgressDialog(activity);
-        dialog.setMessage(activity.getString(R.string.fields_downloading_message));
-
-        parentActivity = activity;
+    static boolean isRunning() {
+        return running;
     }
 
     @Override
     protected void onPreExecute() {
-        dialog.show();
+        MainActivity.getCurrentInstance().showDownloadProgressDialog();
+        running = true;
         super.onPreExecute();
     }
 
     @SuppressWarnings("ConstantConditions")
     private String getContentsString() throws IOException {
+        MainActivity parentActivity = MainActivity.getCurrentInstance();
+
         GameState state = parentActivity.getState();
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
@@ -106,9 +102,12 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     protected void onPostExecute(ArrayList<String> result) {
         super.onPostExecute(result);
 
-        parentActivity.setFieldContents(result, false, lastError);
+        MainActivity parentActivity = MainActivity.getCurrentInstance();
+        running = false;
 
-        if (dialog.isShowing())
-            dialog.dismiss();
+        if (parentActivity != null) {
+            parentActivity.setFieldContents(result, false, lastError);
+            parentActivity.dismissDownloadProgressDialog();
+        }
     }
 }

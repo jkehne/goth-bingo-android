@@ -1,6 +1,7 @@
 package de.int80.gothbingo;
 
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,10 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
     private WebSocketServiceConnection backgroundServiceConnection;
 
+    private ProgressDialog downloadProgressDialog;
+
+    private static MainActivity currentInstance;
+
+    public static MainActivity getCurrentInstance() {
+        return currentInstance;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        currentInstance = this;
 
         if (savedInstanceState != null)
             state = (GameState)savedInstanceState.getSerializable(STATE_KEY);
@@ -49,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
         if (state == null) {
             state = new GameState();
 
-            FieldContentFetcher fetcher = new FieldContentFetcher(this);
+            FieldContentFetcher fetcher = new FieldContentFetcher();
             fetcher.execute();
 
             Intent launchIntent = getIntent();
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
         } else {
-            setFieldContents(null, true, null);
+            if (FieldContentFetcher.isRunning())
+                showDownloadProgressDialog();
+            else
+                setFieldContents(null, true, null);
         }
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
@@ -84,6 +97,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         backgroundServiceConnection.disconnect();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if ((downloadProgressDialog != null) && (downloadProgressDialog.isShowing()))
+            downloadProgressDialog.dismiss();
+
+        super.onDestroy();
     }
 
     public void onBingoFieldClick(View view) {
@@ -144,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPlayAgainButtonClick(View view) {
         hideWinMessage();
         backgroundServiceConnection.getService().startNewGame();
-        new FieldContentFetcher(this).execute();
+        new FieldContentFetcher().execute();
     }
 
     @Override
@@ -288,5 +309,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    void showDownloadProgressDialog() {
+        if (downloadProgressDialog == null) {
+            downloadProgressDialog = new ProgressDialog(this);
+            downloadProgressDialog.setMessage(getString(R.string.fields_downloading_message));
+        }
+        downloadProgressDialog.show();
+    }
+
+    void dismissDownloadProgressDialog() {
+        if ((downloadProgressDialog != null) && (downloadProgressDialog.isShowing()))
+            downloadProgressDialog.dismiss();
     }
 }
