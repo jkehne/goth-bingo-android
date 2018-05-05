@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WebSocketServiceConnection backgroundServiceConnection;
 
-    private ProgressDialog downloadProgressDialog;
+    private ProgressDialog progressDialog;
 
     private static MainActivity currentInstance;
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
         } else {
             if (FieldContentFetcher.isRunning())
-                showDownloadProgressDialog();
+                showProgressDialog(getString(R.string.fields_downloading_message));
             else
                 setFieldContents(null, true, null);
         }
@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if ((downloadProgressDialog != null) && (downloadProgressDialog.isShowing()))
-            downloadProgressDialog.dismiss();
+        if ((progressDialog != null) && (progressDialog.isShowing()))
+            progressDialog.dismiss();
 
         super.onDestroy();
     }
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                new SubmitFieldTask(MainActivity.this).execute(input.getText().toString());
+                new SubmitFieldTask().execute(input.getText().toString());
             }
         });
 
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 dialog.dismiss();
-                new SubmitFieldTask(MainActivity.this).execute(input.getText().toString());
+                new SubmitFieldTask().execute(input.getText().toString());
                 return true;
             }
         });
@@ -311,16 +311,16 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    void showDownloadProgressDialog() {
-        if (downloadProgressDialog == null) {
-            downloadProgressDialog = new ProgressDialog(this);
-            downloadProgressDialog.setMessage(getString(R.string.fields_downloading_message));
-        }
-        downloadProgressDialog.show();
+    void showProgressDialog(String message) {
+        if (progressDialog == null)
+            progressDialog = new ProgressDialog(this);
+
+        progressDialog.setMessage(message);
+        progressDialog.show();
     }
 
-    void dismissDownloadProgressDialog() {
-        if ((downloadProgressDialog != null) && (downloadProgressDialog.isShowing()))
-            downloadProgressDialog.dismiss();
+    void dismissProgressDialog() {
+        if ((progressDialog != null) && (progressDialog.isShowing()))
+            progressDialog.dismiss();
     }
 }

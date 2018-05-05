@@ -30,7 +30,8 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
 
     @Override
     protected void onPreExecute() {
-        MainActivity.getCurrentInstance().showDownloadProgressDialog();
+        MainActivity parentActivity = MainActivity.getCurrentInstance();
+        parentActivity.showProgressDialog(parentActivity.getString(R.string.fields_downloading_message));
         running = true;
         super.onPreExecute();
     }
@@ -107,7 +108,7 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
 
         if (parentActivity != null) {
             parentActivity.setFieldContents(result, false, lastError);
-            parentActivity.dismissDownloadProgressDialog();
+            parentActivity.dismissProgressDialog();
         }
     }
 }

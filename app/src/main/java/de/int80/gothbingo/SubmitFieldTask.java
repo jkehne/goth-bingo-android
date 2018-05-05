@@ -1,8 +1,5 @@
 package de.int80.gothbingo;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -21,20 +18,11 @@ class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
     private static final String TAG = SubmitFieldTask.class.getSimpleName();
     private Throwable lastError = null;
 
-    private final ProgressDialog dialog;
-    @SuppressLint("StaticFieldLeak")
-    private final Context parentActivity;
-
-    SubmitFieldTask(Context activity) {
-        dialog = new ProgressDialog(activity);
-        dialog.setMessage(activity.getString(R.string.submitting_suggestion_message));
-
-        parentActivity = activity;
-    }
-
     @Override
     protected void onPreExecute() {
-        dialog.show();
+        MainActivity parentActivity = MainActivity.getCurrentInstance();
+        parentActivity.showProgressDialog(parentActivity.getString(R.string.submitting_suggestion_message));
+
         super.onPreExecute();
     }
 
@@ -68,6 +56,8 @@ class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
     }
 
     private void showResultDialog(boolean success) {
+        MainActivity parentActivity = MainActivity.getCurrentInstance();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
 
         if (success) {
@@ -96,8 +86,7 @@ class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
 
-        if (dialog.isShowing())
-            dialog.dismiss();
+        MainActivity.getCurrentInstance().dismissProgressDialog();
 
         showResultDialog(success);
     }
