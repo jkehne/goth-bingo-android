@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Goth Bingo</string>
-    <string name="app_url">https://int80.de/bingo.apk</string>
-    <string name="github_url">https://github.com/jkehne/goth-bingo-android</string>
+    <string name="app_name" translatable="false">Goth Bingo</string>
+    <string name="app_url" translatable="false">https://int80.de/bingo.apk</string>
+    <string name="github_url" translatable="false">https://github.com/jkehne/goth-bingo-android</string>
 
     <string name="share_chooser_title">Share Goth Bingo</string>
 
