@@ -11,8 +11,8 @@
     <string name="free_space_text">Free space</string>
 
     <string name="play_again_button_text">Tap here to play again</string>
-    <string name="refresh_button_text">Reload</string>
-    <string name="exit_button_text">Exit</string>
+    <string name="refresh_button_text">Reload fields</string>
+    <string name="exit_button_text">Exit game</string>
     <string name="suggest_button_text">Suggest new field</string>
     <string name="suggest_dialog_text">Please enter your suggestion here</string>
     <string name="share_button_text">Share</string>
