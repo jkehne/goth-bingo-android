@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Goth Bingo</string>
+    <string name="app_url">https://int80.de/bingo.apk</string>
+    <string name="github_url">https://github.com/jkehne/goth-bingo-android</string>
+
+    <string name="share_chooser_title">Share Goth Bingo</string>
+
     <string name="win_message">You win!</string>
     <string name="lose_message">wins!</string>
     <string name="free_space_text">Free space</string>
@@ -10,6 +15,8 @@
     <string name="exit_button_text">Exit</string>
     <string name="suggest_button_text">Suggest new field</string>
     <string name="suggest_dialog_text">Please enter your suggestion here</string>
+    <string name="share_button_text">Share</string>
+    <string name="github_button_text">Github</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Player name</string>

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -250,6 +251,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.SuggestButton:
                 handleSuggest();
                 return true;
+            case R.id.ShareButton:
+                handleShare();
+                return true;
+            case R.id.GithubButton:
+                handleGithub();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -260,6 +267,21 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
 
         handleGameExit();
+    }
+
+    private void handleGithub() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        browserIntent.setData(Uri.parse(getString(R.string.github_url)));
+        startActivity(browserIntent);
+    }
+
+    private void handleShare() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_url));
+
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser_title)));
     }
 
     private void handleGameExit() {
