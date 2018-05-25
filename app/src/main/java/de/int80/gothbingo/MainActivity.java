@@ -286,7 +286,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleGameExit() {
         backgroundServiceConnection.getService().stop();
-        unbindService(backgroundServiceConnection);
         finish();
     }
 

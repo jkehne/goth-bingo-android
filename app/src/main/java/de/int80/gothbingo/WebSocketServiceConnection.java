@@ -70,6 +70,8 @@ class WebSocketServiceConnection implements ServiceConnection {
         mService.setParentActivity(mContext);
 
         handlemissedWin();
+
+        mContext.unbindService(this);
     }
 
     @Override
