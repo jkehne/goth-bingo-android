@@ -40,6 +40,9 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private String getContentsString() throws IOException {
         MainActivity parentActivity = MainActivity.getCurrentInstance();
 
+        if (parentActivity == null)
+            return "";
+
         GameState state = parentActivity.getState();
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
