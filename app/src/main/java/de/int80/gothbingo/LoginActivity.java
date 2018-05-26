@@ -23,6 +23,12 @@ public class LoginActivity extends AppCompatActivity {
     static final String PLAYER_NAME_KEY = LoginActivity.class.getName() + ".PLAYER_NAME";
     static final String GAME_ID_KEY = LoginActivity.class.getName() + ".GAME_ID";
 
+    private static LoginActivity currentInstance;
+
+    static LoginActivity getCurrentInstance() {
+        return currentInstance;
+    }
+
     private void setEventListeners() {
         Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleSignIn() {
+        currentInstance = null;
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(PLAYER_NAME_KEY, extractFieldContents(R.id.playerName));
         intent.putExtra(GAME_ID_KEY, extractFieldContents(R.id.gameID));
@@ -92,8 +100,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentInstance = this;
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+
+        currentInstance = null;
 
         saveLoginInfo(extractFieldContents(R.id.playerName), extractFieldContents(R.id.gameID));
     }
