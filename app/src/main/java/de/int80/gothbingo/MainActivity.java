@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 setFieldContents(null, true, null);
         }
 
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(myToolbar);
 
         backgroundServiceConnection = new WebSocketServiceConnection(this);

@@ -2,10 +2,14 @@ package de.int80.gothbingo;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,5 +96,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
 
         saveLoginInfo(extractFieldContents(R.id.playerName), extractFieldContents(R.id.gameID));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.login_activity_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ShareButton:
+                handleShare();
+                return true;
+            case R.id.GithubButton:
+                handleGithub();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void handleGithub() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        browserIntent.setData(Uri.parse(getString(R.string.github_url)));
+        startActivity(browserIntent);
+    }
+
+    private void handleShare() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_url));
+
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser_title)));
     }
 }
