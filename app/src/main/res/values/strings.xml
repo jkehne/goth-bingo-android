@@ -35,8 +35,13 @@
     <string name="submit_suggestion_success_title">Thank you</string>
     <string name="submit_suggestion_success_message">Your suggestion has been recorded. Note that it must be approved by an administrator before it will appear in the game.</string>
 
+    <string name="update_available_title">Update available</string>
+    <string name="update_available_message">An newer version of this app is available. Install now? (Warning: Installing an update aborts a running game)</string>
+
     <string name="ok_action_text">OK</string>
     <string name="cancel_action_text">Cancel</string>
+    <string name="yes_action_text">Yes</string>
+    <string name="no_action_text">No</string>
 
     <string name="foreground_notification_channel_name">Win messages</string>
     <string name="background_notification_channel_name">Background service notification</string>

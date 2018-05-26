@@ -31,8 +31,13 @@
     <string name="submit_suggestion_success_title">Vielen Dank</string>
     <string name="submit_suggestion_success_message">Dein Vorschlag wurde gespeichert. Beachte, dass ein Vorschlag von einem Administrator freigeschaltet werden muss, bevor er im Spiel erscheint.</string>
 
+    <string name="update_available_title">Update verfügbar</string>
+    <string name="update_available_message">Eine neue Version ist verfügbar. Jetzt installieren? (Achtung: Installieren einer neuen Version bricht das laufende Spiel ab.)</string>
+
     <string name="ok_action_text">OK</string>
     <string name="cancel_action_text">Abbrechen</string>
+    <string name="yes_action_text">Ja</string>
+    <string name="no_action_text">Nein</string>
 
     <string name="foreground_notification_channel_name">Gewinnbenachrichtigungen</string>
     <string name="background_notification_channel_name">Hintergrunddienstbenachrichtigung</string>

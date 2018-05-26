@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         setEventListeners();
 
         restoreLoginInfo();
+
+        new AppUpdater(getApplicationContext()).execute();
     }
 
     @Nullable
