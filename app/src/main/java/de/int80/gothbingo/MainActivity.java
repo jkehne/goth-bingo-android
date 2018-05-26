@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         if ((progressDialog != null) && (progressDialog.isShowing()))
             progressDialog.dismiss();
 
+        currentInstance = null;
+
         super.onDestroy();
     }
 
