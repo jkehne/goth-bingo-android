@@ -3,6 +3,7 @@ package de.int80.gothbingo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         restoreLoginInfo();
 
-        new AppUpdater(getApplicationContext()).execute();
+        new AppUpdater(getApplicationContext()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Nullable

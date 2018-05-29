@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             state = new GameState();
 
             FieldContentFetcher fetcher = new FieldContentFetcher();
-            fetcher.execute();
+            fetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             Intent launchIntent = getIntent();
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
@@ -326,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 dialog.dismiss();
-                new SubmitFieldTask().execute(input.getText().toString());
+                new SubmitFieldTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, input.getText().toString());
                 return true;
             }
         });
