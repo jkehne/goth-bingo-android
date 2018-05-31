@@ -33,6 +33,7 @@
 
     <string name="update_available_title">Update verfügbar</string>
     <string name="update_available_message">Eine neue Version ist verfügbar. Jetzt installieren? (Achtung: Installieren einer neuen Version bricht das laufende Spiel ab.)</string>
+    <string name="update_download_failed_message">Update download failed</string>
 
     <string name="ok_action_text">OK</string>
     <string name="cancel_action_text">Abbrechen</string>

@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         restoreLoginInfo();
 
-        new AppUpdater(getApplicationContext()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UpdateChecker(getApplicationContext()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Nullable

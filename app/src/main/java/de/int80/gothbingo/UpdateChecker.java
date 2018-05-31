@@ -20,14 +20,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-class AppUpdater extends AsyncTask<Void, Void, Boolean> {
+class UpdateChecker extends AsyncTask<Void, Void, Boolean> {
 
-    private final String TAG = AppUpdater.class.getSimpleName();
+    private final String TAG = UpdateChecker.class.getSimpleName();
 
     @SuppressLint("StaticFieldLeak")
     private final Context mContext;
 
-    AppUpdater(Context context) {
+    UpdateChecker(Context context) {
         mContext = context;
     }
 
@@ -96,7 +96,7 @@ class AppUpdater extends AsyncTask<Void, Void, Boolean> {
     }
 
     private void queueUpdateDownload() {
-
+        new UpdateDownloader(mContext).startDownload();
     }
 
     private Context getDialogContext() {
