@@ -28,3 +28,8 @@
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 -dontwarn okio.**
 -dontwarn okhttp3.**
+
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+}
