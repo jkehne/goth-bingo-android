@@ -1,17 +1,17 @@
 package de.int80.gothbingo;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
-
-import java.io.File;
 
 class UpdateDownloader extends BroadcastReceiver {
     private final String TAG = UpdateDownloader.class.getSimpleName();
@@ -55,14 +55,33 @@ class UpdateDownloader extends BroadcastReceiver {
         mContext.startActivity(intent);
     }
 
-    private Uri getDownloadedFileUri(Cursor cursor) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return downloadManager.getUriForDownloadedFile(downloadID);
+    @SuppressLint("PackageManagerGetSignatures")
+    private boolean verifySignature(UpdateFileWrapper file) {
+        PackageManager pm = mContext.getPackageManager();
 
-        //noinspection deprecation
-        String localFilename = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME));
-        File localFile = new File(localFilename);
-        return Uri.fromFile(localFile);
+        Signature[] localSignatures;
+        Signature[] fileSignatures;
+
+        String filePath = file.getPath();
+
+        if (filePath == null)
+            return false;
+
+        fileSignatures = pm.getPackageArchiveInfo(filePath, PackageManager.GET_SIGNATURES).signatures;
+
+        try {
+            localSignatures = pm.getPackageInfo(mContext.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+
+            for (Signature localSig : localSignatures)
+                for (Signature fileSig : fileSignatures)
+                    if (localSig.equals(fileSig))
+                        return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
     }
 
     private void handleDownloadComplete() {
@@ -85,11 +104,21 @@ class UpdateDownloader extends BroadcastReceiver {
         if (status == DownloadManager.STATUS_SUCCESSFUL) {
             unregisterReceiver();
 
-            Uri uri = getDownloadedFileUri(cursor);
+            UpdateFileWrapper file = UpdateFileWrapper.makeUpdateFileWrapper(mContext, downloadID);
+
+            if (!verifySignature(file)) {
+                Log.e(TAG, "Failed to verify update signature");
+                Toast.makeText(mContext, R.string.update_signature_mismatch, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Uri uri = file.getUri();
             String mimeType = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_MEDIA_TYPE));
             Log.d(TAG, "Download URI: " + uri.toString() + ", MIME type: " + mimeType);
 
             installUpdate(uri, mimeType);
+
+            file.close();
         }
     }
 
