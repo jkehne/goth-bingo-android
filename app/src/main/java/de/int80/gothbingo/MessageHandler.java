@@ -50,6 +50,11 @@ class MessageHandler extends WebSocketListener {
         parentService.handleLoss(gameNumber, winner);
     }
 
+    private void handleNumPlayersChange(String params) {
+        String[] tokens = params.split(";");
+        parentService.setNumPlayers(Integer.valueOf(tokens[0]));
+    }
+
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         if (!text.contains(";")) {
@@ -65,6 +70,9 @@ class MessageHandler extends WebSocketListener {
                 break;
             case "WIN":
                 handleWin(tokens[1]);
+                break;
+            case "PLAYERS":
+                handleNumPlayersChange(tokens[1]);
                 break;
             default:
                 handleUnknownMessage(text);

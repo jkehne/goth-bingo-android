@@ -80,6 +80,21 @@ public class WebSocketService extends Service {
         return terminated;
     }
 
+    public int getNumPlayers() { return numPlayers; }
+
+    public void setNumPlayers(final int numPlayers) {
+        Log.d(TAG, "Number of players changed to " + numPlayers);
+        this.numPlayers = numPlayers;
+        final MainActivity currentMain = MainActivity.getCurrentInstance();
+        if (currentMain != null)
+            currentMain.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    currentMain.setNumPlayers(numPlayers);
+                }
+            });
+    }
+
     private final LocalBinder mBinder = new LocalBinder();
     private MainActivity parentActivity;
     private String playerName;
@@ -91,6 +106,7 @@ public class WebSocketService extends Service {
     private boolean localWin;
     private boolean terminated;
     private long lastConnect;
+    private int numPlayers;
 
     @Override
     public IBinder onBind(Intent intent) {

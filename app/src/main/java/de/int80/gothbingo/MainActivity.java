@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private WebSocketServiceConnection backgroundServiceConnection;
 
     private ProgressDialog progressDialog;
+
+    private NumPlayersActionProvider numPlayersProvider;
 
     private static MainActivity currentInstance;
 
@@ -239,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_menu, menu);
+
+        MenuItem numPlayersItem = menu.findItem(R.id.NumPlayersField);
+        numPlayersProvider = (NumPlayersActionProvider) MenuItemCompat.getActionProvider(numPlayersItem);
+
         return true;
     }
 
@@ -346,5 +353,9 @@ public class MainActivity extends AppCompatActivity {
     void dismissProgressDialog() {
         if ((progressDialog != null) && (progressDialog.isShowing()))
             progressDialog.dismiss();
+    }
+
+    void setNumPlayers(int numPlayers) {
+        numPlayersProvider.setNumPlayers(numPlayers);
     }
 }

@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/NumPlayersField"
+        android:visible="true"
+        android:title="Players online"
+        app:actionProviderClass="de.int80.gothbingo.NumPlayersActionProvider"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/SuggestButton"
         android:icon="@drawable/ic_add_circle_outline"
         android:title="@string/suggest_button_text"
