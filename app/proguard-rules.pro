@@ -33,3 +33,5 @@
     public static int v(...);
     public static int d(...);
 }
+
+-keep class de.int80.gothbingo.NumPlayersActionProvider { <init>(...); }
