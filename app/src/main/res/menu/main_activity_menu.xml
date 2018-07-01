@@ -9,15 +9,15 @@
         app:actionProviderClass="de.int80.gothbingo.NumPlayersActionProvider"
         app:showAsAction="always" />
     <item
-        android:id="@+id/SuggestButton"
-        android:icon="@drawable/ic_add_circle_outline"
-        android:title="@string/suggest_button_text"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/RefreshButton"
         android:icon="@drawable/ic_refresh"
         android:title="@string/refresh_button_text"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/SuggestButton"
+        android:icon="@drawable/ic_add_circle_outline"
+        android:title="@string/suggest_button_text"
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
