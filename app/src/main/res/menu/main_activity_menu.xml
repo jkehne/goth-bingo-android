@@ -5,7 +5,7 @@
     <item
         android:id="@+id/NumPlayersField"
         android:visible="true"
-        android:title="Players online"
+        android:title="@string/num_players_button_text"
         app:actionProviderClass="de.int80.gothbingo.NumPlayersActionProvider"
         app:showAsAction="always" />
     <item

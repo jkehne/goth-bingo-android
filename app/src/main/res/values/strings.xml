@@ -14,6 +14,7 @@
     <string name="free_space_text">Free space</string>
 
     <string name="play_again_button_text">Tap here to play again</string>
+    <string name="num_players_button_text">Players online</string>
     <string name="refresh_button_text">Reload fields</string>
     <string name="exit_button_text">Exit game</string>
     <string name="suggest_button_text">Suggest new field</string>

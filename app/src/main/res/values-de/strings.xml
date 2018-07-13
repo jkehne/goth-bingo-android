@@ -7,6 +7,7 @@
     <string name="free_space_text">Freifeld</string>
 
     <string name="play_again_button_text">Hier klicken, um nochmal zu spielen</string>
+    <string name="num_players_button_text">Anzahl Spieler</string>
     <string name="refresh_button_text">Felder neu laden</string>
     <string name="exit_button_text">Spiel beenden</string>
     <string name="suggest_button_text">Neues Feld vorschlagen</string>
