@@ -8,7 +8,6 @@ import android.util.Log;
 import java.io.IOException;
 
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -40,7 +39,7 @@ class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
         Response response;
 
         try {
-            response = new OkHttpClient().newCall(requestBuilder.build()).execute();
+            response = HTTPClientFactory.getHTTPClient().newCall(requestBuilder.build()).execute();
         } catch (IOException e) {
             Log.e(TAG, "Submit failed", e);
             lastError = e;

@@ -52,7 +52,7 @@ class UpdateChecker extends AsyncTask<Void, Void, Boolean> {
     }
 
     private long getAPKTime() {
-        final OkHttpClient client = new OkHttpClient();
+        final OkHttpClient client = HTTPClientFactory.getHTTPClient();
 
         Request request = new Request.Builder()
                 .url(mContext.getString(R.string.app_url))

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -45,9 +44,7 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
 
         GameState state = parentActivity.getState();
 
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.cache(new Cache(parentActivity.getCacheDir(), 1024 * 1024));
-        OkHttpClient client = clientBuilder.build();
+        OkHttpClient client = HTTPClientFactory.getHTTPClient();
 
         Request.Builder builder = new Request.Builder();
         builder.url(fieldsURL);

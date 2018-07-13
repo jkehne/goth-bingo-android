@@ -23,7 +23,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -181,7 +180,7 @@ public class WebSocketService extends Service {
 
     private void doConnect() {
         Request request = new Request.Builder().url("wss://int80.de/bingo/server").build();
-        OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
+        OkHttpClient client = HTTPClientFactory.getWebsocketClient();
 
         connection = client.newWebSocket(request, new MessageHandler(this));
         lastConnect = System.currentTimeMillis();
