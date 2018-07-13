@@ -18,7 +18,6 @@ import okhttp3.Response;
 class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = FieldContentFetcher.class.getSimpleName();
 
-    private static final String fieldsURL = "https://int80.de/bingo/js/fields.php?pure_json=1";
     private Throwable lastError = null;
 
     private static boolean running;
@@ -47,7 +46,7 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
         OkHttpClient client = HTTPClientFactory.getHTTPClient();
 
         Request.Builder builder = new Request.Builder();
-        builder.url(fieldsURL);
+        builder.url(GothBingo.getContext().getString(R.string.fields_url));
 
         Response response = client.newCall(builder.build()).execute();
 

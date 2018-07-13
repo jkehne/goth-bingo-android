@@ -34,7 +34,7 @@ class SubmitFieldTask extends AsyncTask<String, Void, Boolean> {
         RequestBody body = bodyBuilder.build();
 
         Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url("https://int80.de/bingo/collector.php");
+        requestBuilder.url(GothBingo.getContext().getString(R.string.new_field_collector_url));
         requestBuilder.post(body);
 
         Response response;

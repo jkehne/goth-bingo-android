@@ -181,7 +181,7 @@ public class WebSocketService extends Service {
     }
 
     private void doConnect() {
-        Request request = new Request.Builder().url("wss://int80.de/bingo/server").build();
+        Request request = new Request.Builder().url(getString(R.string.websocket_url)).build();
         OkHttpClient client = HTTPClientFactory.getWebsocketClient();
 
         connection = client.newWebSocket(request, new MessageHandler(this));

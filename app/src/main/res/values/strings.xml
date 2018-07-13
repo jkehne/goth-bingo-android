@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name" translatable="false">Goth Bingo</string>
     <string name="app_url" translatable="false">https://int80.de/bingo.apk</string>
+    <string name="new_field_collector_url" translatable="false">https://int80.de/bingo/collector.php</string>
+    <string name="fields_url" translatable="false">https://int80.de/bingo/js/fields.php?pure_json=1</string>
+    <string name="websocket_url" translatable="false">wss://int80.de/bingo/server</string>
     <string name="github_url" translatable="false">https://github.com/jkehne/goth-bingo-android</string>
 
     <string name="share_chooser_title">Share Goth Bingo</string>
