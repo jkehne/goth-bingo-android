@@ -179,16 +179,19 @@ public class WebSocketService extends Service {
         startForeground(1, makeNotification(getString(R.string.service_notification_text), true));
     }
 
-    private void doConnect(OkHttpClient client, Request request) {
+    private void doConnect() {
+        Request request = new Request.Builder().url("wss://int80.de/bingo/server").build();
+        OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
+
         connection = client.newWebSocket(request, new MessageHandler(this));
         lastConnect = System.currentTimeMillis();
     }
 
-    private void scheduleDelayedConnect(final OkHttpClient client, final Request request) {
+    private void scheduleDelayedConnect() {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                doConnect(client, request);
+                doConnect();
             }
         };
 
@@ -196,20 +199,15 @@ public class WebSocketService extends Service {
             new Timer().schedule(task, lastConnect + 30000 - System.currentTimeMillis());
         } catch (IllegalArgumentException e) {
             //already expired
-            doConnect(client, request);
+            doConnect();
         }
     }
 
     public void connectToServer(boolean delayed) {
-        Request.Builder requestBuilder = new Request.Builder();
-        final Request request = requestBuilder.url("wss://int80.de/bingo/server").build();
-
-        final OkHttpClient client = new OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build();
-
         if (delayed)
-            scheduleDelayedConnect(client, request);
+            scheduleDelayedConnect();
         else
-            doConnect(client, request);
+            doConnect();
     }
 
     @Override
