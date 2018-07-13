@@ -123,6 +123,7 @@ public class WebSocketService extends Service {
     private void makeNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            assert manager != null;
 
             NotificationChannel backgroundNotificationChannel = new NotificationChannel(
                     BACKGROUND_NOTIFICATION_CHANNEL,
