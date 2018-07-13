@@ -16,9 +16,9 @@ import android.widget.Toast;
 class UpdateDownloader extends BroadcastReceiver {
     private final String TAG = UpdateDownloader.class.getSimpleName();
 
-    private Context mContext;
+    private final Context mContext;
     private long downloadID;
-    private DownloadManager downloadManager;
+    private final DownloadManager downloadManager;
 
     UpdateDownloader(Context context) {
         mContext = context;

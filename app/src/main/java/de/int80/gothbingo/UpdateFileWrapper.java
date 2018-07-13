@@ -7,9 +7,9 @@ import android.os.Build;
 
 abstract class UpdateFileWrapper {
 
-    DownloadManager downloadManager;
-    Context mContext;
-    long downloadID;
+    final DownloadManager downloadManager;
+    final Context mContext;
+    final long downloadID;
 
     UpdateFileWrapper(Context context, long downloadID) {
         mContext = context;

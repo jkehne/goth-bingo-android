@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 class NumPlayersActionProvider extends ActionProvider {
-    private Context mContext;
+    private final Context mContext;
     private TextView numPlayersText;
 
     public NumPlayersActionProvider(Context context) {
