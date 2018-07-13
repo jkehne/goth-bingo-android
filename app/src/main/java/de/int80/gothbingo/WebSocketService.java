@@ -31,6 +31,7 @@ import okhttp3.WebSocket;
 public class WebSocketService extends Service {
 
     private static final String TAG = WebSocketService.class.getSimpleName();
+
     private static WebSocketService theInstance;
     public static final String PLAYER_NAME_KEY = WebSocketService.class.getName() + "PLAYER_NAME";
     public static final String GAME_ID_KEY = WebSocketService.class.getName() + "GAME_ID";

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 class GameState implements Serializable {
+    private String playerName;
+    private String gameID;
+    private ArrayList<String> allFields;
     private final boolean[][] checkedFields = {
             {false, false, false, false, false},
             {false, false, false, false, false},
@@ -20,8 +23,6 @@ class GameState implements Serializable {
         return allFields;
     }
 
-    private ArrayList<String> allFields;
-
     String getPlayerName() {
         return playerName;
     }
@@ -37,9 +38,6 @@ class GameState implements Serializable {
     void setGameID(String gameID) {
         this.gameID = gameID;
     }
-
-    private String playerName;
-    private String gameID;
 
     void toggleField(int x, int y) {
         checkedFields[x][y] = !checkedFields[x][y];

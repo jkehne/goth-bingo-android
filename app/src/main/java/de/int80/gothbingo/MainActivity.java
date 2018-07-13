@@ -32,24 +32,21 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
     private final String STATE_KEY = GameState.class.getName();
-
-    public GameState getState() {
-        return state;
-    }
-
     private GameState state;
-
     private WebSocketServiceConnection backgroundServiceConnection;
-
     private ProgressDialog progressDialog;
-
     private NumPlayersActionProvider numPlayersProvider;
 
     private static MainActivity currentInstance;
 
     public static MainActivity getCurrentInstance() {
         return currentInstance;
+    }
+
+    public GameState getState() {
+        return state;
     }
 
     @Override
