@@ -43,6 +43,7 @@
     <string name="update_available_message">An newer version of this app is available. Install now? (Warning: Installing an update aborts a running game)</string>
     <string name="update_download_failed_message">Update download failed</string>
     <string name="update_signature_mismatch">Update signature mismatch. Please try again later.</string>
+    <string name="update_notification_title">GothBingo update</string>
 
     <string name="ok_action_text">OK</string>
     <string name="cancel_action_text">Cancel</string>

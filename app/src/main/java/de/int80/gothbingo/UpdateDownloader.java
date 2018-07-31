@@ -37,6 +37,8 @@ class UpdateDownloader extends BroadcastReceiver {
     private void queueDownloadInDownloadManager() {
         Uri apkURI = Uri.parse(mContext.getString(R.string.app_url));
         DownloadManager.Request request = new DownloadManager.Request(apkURI);
+        request.setTitle(mContext.getString(R.string.update_notification_title));
+        request.setVisibleInDownloadsUi(false);
 
         downloadID = downloadManager.enqueue(request);
 
