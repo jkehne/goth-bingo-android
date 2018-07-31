@@ -49,7 +49,7 @@ class UpdateDownloader extends BroadcastReceiver {
     }
 
     private void installUpdate(Uri apkURI, String mimeType) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
         intent.setDataAndType(apkURI, mimeType);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
