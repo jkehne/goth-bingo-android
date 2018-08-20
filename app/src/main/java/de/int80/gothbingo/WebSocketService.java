@@ -202,6 +202,9 @@ public class WebSocketService extends Service {
     }
 
     public void startNewGame() {
+        // end old connection if one exists
+        if(connection != null)
+            connection.close(1000,null);
         currentGameNumber = 0;
         hasWinner = false;
         connectToServer(false);
