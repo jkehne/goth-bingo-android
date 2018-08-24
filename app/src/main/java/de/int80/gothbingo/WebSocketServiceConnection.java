@@ -27,9 +27,6 @@ class WebSocketServiceConnection implements ServiceConnection {
         GameState state = mContext.getState();
 
         if (WebSocketService.getInstance() != null) {
-            MainActivity currentMain = MainActivity.getCurrentInstance();
-            if (currentMain != null)
-                currentMain.setNumPlayers(WebSocketService.getInstance().getNumPlayers());
             return;
         }
 

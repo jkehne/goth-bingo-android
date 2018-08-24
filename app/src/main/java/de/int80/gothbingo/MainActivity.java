@@ -353,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setNumPlayers(int numPlayers) {
-        numPlayersProvider.setNumPlayers(numPlayers);
+        if (numPlayersProvider != null)
+            numPlayersProvider.setNumPlayers(numPlayers);
     }
 }
