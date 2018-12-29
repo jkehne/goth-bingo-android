@@ -343,6 +343,13 @@ public class MainActivity extends AppCompatActivity {
         if (progressDialog == null)
             progressDialog = new ProgressDialog(this);
 
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                onBackPressed();
+            }
+        });
+
         progressDialog.setMessage(message);
         progressDialog.show();
     }
