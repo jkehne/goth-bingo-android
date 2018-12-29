@@ -181,12 +181,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDownloadFailureDialog(Throwable t) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(
-                getString(R.string.fields_download_failed_message)
-                        + " ("
-                        + t.getLocalizedMessage()
-                        + ")"
-        );
+        StringBuilder messageBuilder = new StringBuilder(getString(R.string.fields_download_failed_message));
+        if (t != null) {
+            messageBuilder.append(" (");
+            messageBuilder.append(t.getLocalizedMessage());
+            messageBuilder.append(")");
+        }
+
+        builder.setMessage(messageBuilder.toString());
         builder.setTitle(R.string.fields_download_failed_title);
         builder.setPositiveButton(getResources().getString(R.string.ok_action_text), new DialogInterface.OnClickListener() {
             @Override
