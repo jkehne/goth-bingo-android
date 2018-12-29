@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPlayAgainButtonClick(View view) {
         hideWinMessage();
         backgroundServiceConnection.getService().startNewGame();
-        new FieldContentFetcher().execute();
+        new FieldContentFetcher().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
