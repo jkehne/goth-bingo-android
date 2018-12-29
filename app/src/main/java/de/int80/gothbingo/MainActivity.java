@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                new SubmitFieldTask().execute(input.getText().toString());
+                new SubmitFieldTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, input.getText().toString());
                 closeKeyboard();
             }
         });
