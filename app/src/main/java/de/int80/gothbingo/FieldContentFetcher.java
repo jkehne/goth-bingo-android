@@ -41,8 +41,6 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
         if (parentActivity == null)
             return "";
 
-        GameState state = parentActivity.getState();
-
         OkHttpClient client = HTTPClientFactory.getHTTPClient();
 
         Request.Builder builder = new Request.Builder();
@@ -52,8 +50,16 @@ class FieldContentFetcher extends AsyncTask<Void, Void, ArrayList<String>> {
 
         if (!response.isSuccessful())
             throw new IOException(response.message());
-        else if ((response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED) && (state.getAllFields() != null))
-            return "";
+        else {
+            parentActivity = MainActivity.getCurrentInstance();
+            if (parentActivity == null)
+                return "";
+
+            GameState state = parentActivity.getState();
+
+            if ((response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED) && (state.getAllFields() != null))
+                return "";
+        }
 
         return response.body().string();
     }
