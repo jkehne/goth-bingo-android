@@ -61,12 +61,16 @@ public class MainActivity extends AppCompatActivity {
         if (state == null) {
             state = new GameState();
 
-            FieldContentFetcher fetcher = new FieldContentFetcher();
-            fetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
             Intent launchIntent = getIntent();
             state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
             state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
+
+            if (FieldContentFetcher.isRunning()) {
+                showProgressDialog(getString(R.string.fields_downloading_message));
+            } else {
+                FieldContentFetcher fetcher = new FieldContentFetcher();
+                fetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
         } else {
             if (FieldContentFetcher.isRunning())
                 showProgressDialog(getString(R.string.fields_downloading_message));
