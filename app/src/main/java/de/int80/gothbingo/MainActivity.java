@@ -28,15 +28,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private final String STATE_KEY = GameState.class.getName();
-    private GameState state;
-    private WebSocketServiceConnection backgroundServiceConnection;
+    private final MainActivityPresenter presenter;
     private ProgressDialog progressDialog;
     private NumPlayersActionProvider numPlayersProvider;
 
@@ -46,50 +46,32 @@ public class MainActivity extends AppCompatActivity {
         return currentInstance;
     }
 
-    public GameState getState() {
-        return state;
+    public MainActivity() {
+        presenter = new MainActivityPresenter(this, new MainActivityModel());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        currentInstance = this;
-
-        if (savedInstanceState != null)
-            state = (GameState)savedInstanceState.getSerializable(STATE_KEY);
-
-        if (state == null) {
-            state = new GameState();
-
-            Intent launchIntent = getIntent();
-            state.setPlayerName(launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY));
-            state.setGameID(launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY));
-
-            if (FieldContentFetcher.isRunning()) {
-                showProgressDialog(getString(R.string.fields_downloading_message));
-            } else {
-                FieldContentFetcher fetcher = new FieldContentFetcher();
-                fetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-        } else {
-            if (FieldContentFetcher.isRunning())
-                showProgressDialog(getString(R.string.fields_downloading_message));
-            else
-                setFieldContents(null, true, null);
-        }
 
         Toolbar myToolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(myToolbar);
 
-        backgroundServiceConnection = new WebSocketServiceConnection(this);
+        String playerName = null, gameID = null;
+
+        Intent launchIntent = getIntent();
+        if (launchIntent != null) {
+            playerName = launchIntent.getStringExtra(LoginActivity.PLAYER_NAME_KEY);
+            gameID = launchIntent.getStringExtra(LoginActivity.GAME_ID_KEY);
+        }
+
+        presenter.onActivityCreated(playerName, gameID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        backgroundServiceConnection.connect();
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
@@ -100,36 +82,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        backgroundServiceConnection.disconnect();
-    }
-
-    @Override
     protected void onDestroy() {
         if ((progressDialog != null) && (progressDialog.isShowing()))
             progressDialog.dismiss();
 
         currentInstance = null;
 
+        presenter.onActivityDestroyed();
         super.onDestroy();
     }
 
     public void onBingoFieldClick(View view) {
         if (view instanceof BingoFieldView) {
-            BingoFieldView bingoField = (BingoFieldView)view;
-            bingoField.toggle();
-            state.toggleField(bingoField.getFieldX(), bingoField.getFieldY());
-
-            if (state.hasFullRow()) {
-                displayWinMessage(getString(R.string.win_message));
-                backgroundServiceConnection.getService().handleWin();
-            }
+            presenter.onFieldClicked((BingoFieldView)view);
         }
     }
 
-    public void displayWinMessage(String message) {
+    @Override
+    public void showWinMessage(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                displayWinMessage(message);
+            }
+        });
+    }
+
+    @Override
+    public void toggleField(BingoFieldView field) {
+        field.toggle();
+    }
+
+    @Override
+    public void toggleField(int row, int col) {
+        ViewGroup parent = findViewById(R.id.BingoFieldLayout);
+        TableRow rowHandle = (TableRow)parent.getChildAt(row);
+        View field = rowHandle.getChildAt(col);
+
+        if (!(field instanceof BingoFieldView))
+            return;
+
+        ((BingoFieldView)field).toggle();
+    }
+
+    private void displayWinMessage(String message) {
         int row, column;
         TableRow rowHandle;
 
@@ -144,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void hideWinMessage() {
+    public void hideWinMessage() {
         findViewById(R.id.WinMessageOverlay).setVisibility(View.GONE);
     }
 
-    private void resetClickedState() {
+    public void resetClickedState() {
         int row, column;
         TableRow rowHandle;
 
@@ -165,26 +161,16 @@ public class MainActivity extends AppCompatActivity {
 
                 if (field.isChecked()) {
                     field.toggle();
-                    state.toggleField(field.getFieldX(), field.getFieldY());
                 }
             }
         }
     }
 
     public void onPlayAgainButtonClick(View view) {
-        hideWinMessage();
-        backgroundServiceConnection.getService().startNewGame();
-        new FieldContentFetcher().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        presenter.onPlayAgainButtonClicked();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable(STATE_KEY, state);
-    }
-
-    private void showDownloadFailureDialog(Throwable t) {
+    public void showDownloadFailureDialog(Throwable t) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         StringBuilder messageBuilder = new StringBuilder(getString(R.string.fields_download_failed_message));
         if (t != null) {
@@ -205,25 +191,10 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public void setFieldContents(ArrayList<String> fields, boolean reload, Throwable error) {
+    public void setFieldContents(List<String> fields) {
         int row, col;
         ViewGroup root, rowHandle;
         BingoFieldView field;
-
-        if (fields != null) {
-            state.setAllFields(fields);
-        } else
-            fields = state.getAllFields();
-
-        if (fields == null) {
-            showDownloadFailureDialog(error);
-            return;
-        }
-
-        if (!reload) {
-            Collections.shuffle(fields);
-            resetClickedState();
-        }
 
         root = findViewById(R.id.BingoFieldLayout);
 
@@ -236,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
 
                 field = (BingoFieldView) rowHandle.getChildAt(col);
                 field.setText(fields.get(row * 5 + col));
-                if (state.isFieldChecked(col, row))
-                    field.toggle();
             }
         }
     }
@@ -299,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleGameExit() {
-        backgroundServiceConnection.getService().stop();
+        presenter.onGameExit();
         finish();
     }
 
@@ -358,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void showProgressDialog(String message) {
+    public void showProgressDialog(String message) {
         if (progressDialog == null)
             progressDialog = new ProgressDialog(this);
 
@@ -373,12 +342,12 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
-    void dismissProgressDialog() {
+    public void dismissProgressDialog() {
         if ((progressDialog != null) && (progressDialog.isShowing()))
             progressDialog.dismiss();
     }
 
-    void setNumPlayers(int numPlayers) {
+    public void setNumPlayers(int numPlayers) {
         if (numPlayersProvider != null)
             numPlayersProvider.setNumPlayers(numPlayers);
     }

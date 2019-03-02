@@ -1,12 +1,15 @@
 package de.int80.gothbingo;
 
+import android.util.Pair;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 class GameState implements Serializable {
     private String playerName;
     private String gameID;
-    private ArrayList<String> allFields;
+    private List<String> allFields;
     private final boolean[][] checkedFields = {
             {false, false, false, false, false},
             {false, false, false, false, false},
@@ -15,11 +18,11 @@ class GameState implements Serializable {
             {false, false, false, false, false}
     };
 
-    void setAllFields(ArrayList<String> allFields) {
+    void setAllFields(List<String> allFields) {
         this.allFields = allFields;
     }
 
-    ArrayList<String> getAllFields() {
+    List<String> getAllFields() {
         return allFields;
     }
 
@@ -68,5 +71,18 @@ class GameState implements Serializable {
             diagonalUp &= checkedFields[i][4-i];
         }
         return (diagonalDown || diagonalUp);
+    }
+
+    public List<Pair<Integer, Integer>> getCheckedFieldsList() {
+        List<Pair<Integer, Integer>> ret = new ArrayList<>();
+
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; j++) {
+                if (checkedFields[i][j])
+                    ret.add(new Pair<>(i, j));
+            }
+        }
+
+        return ret;
     }
 }

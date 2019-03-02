@@ -1,6 +1,7 @@
 package de.int80.gothbingo;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -19,34 +20,22 @@ class WebSocketServiceConnection implements ServiceConnection {
     }
 
     private WebSocketService mService;
-    private final MainActivity mContext;
+    private final IMainActivityModel mainActivityModel;
 
-    WebSocketServiceConnection(MainActivity context) {
-        mContext = context;
-
-        GameState state = mContext.getState();
+    WebSocketServiceConnection(IMainActivityModel model) {
+        mainActivityModel = model;
 
         if (WebSocketService.getInstance() != null) {
             return;
         }
 
-        Intent intent = new Intent(mContext, WebSocketService.class);
-        intent.putExtra(WebSocketService.PLAYER_NAME_KEY, state.getPlayerName());
-        intent.putExtra(WebSocketService.GAME_ID_KEY, state.getGameID());
-        mContext.startService(intent);
-        mContext.bindService(intent, this, 0);
-    }
+        Context appContext = GothBingo.getContext();
 
-    public void connect() {
-        if (WebSocketService.getInstance() != null) {
-            WebSocketService.getInstance().setParentActivity(mContext);
-            handlemissedWin();
-        }
-    }
-
-    public void disconnect() {
-        if (WebSocketService.getInstance() != null)
-            WebSocketService.getInstance().setParentActivity(null);
+        Intent intent = new Intent(appContext, WebSocketService.class);
+        intent.putExtra(WebSocketService.PLAYER_NAME_KEY, model.getPlayerName());
+        intent.putExtra(WebSocketService.GAME_ID_KEY, model.getGameID());
+        appContext.startService(intent);
+        appContext.bindService(intent, this, 0);
     }
 
     private void handlemissedWin() {
@@ -55,11 +44,11 @@ class WebSocketServiceConnection implements ServiceConnection {
         if (service.hasWinner()) {
             String winMessage;
             if (service.isLocalWin())
-                winMessage = mContext.getString(R.string.win_message);
+                winMessage = GothBingo.getContext().getString(R.string.win_message);
             else
-                winMessage = service.getLastWinner() + " " + mContext.getString(R.string.lose_message);
+                winMessage = service.getLastWinner() + " " + GothBingo.getContext().getString(R.string.lose_message);
 
-            mContext.displayWinMessage(winMessage);
+            mainActivityModel.showWinMessage(winMessage);
         }
 
     }
@@ -68,11 +57,11 @@ class WebSocketServiceConnection implements ServiceConnection {
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         WebSocketService.LocalBinder binder = (WebSocketService.LocalBinder)iBinder;
         mService = binder.getService();
-        mService.setParentActivity(mContext);
+        mService.setActivityModel(mainActivityModel);
 
         handlemissedWin();
 
-        mContext.unbindService(this);
+        GothBingo.getContext().unbindService(this);
     }
 
     @Override
