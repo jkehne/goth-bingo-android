@@ -27,9 +27,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity {
