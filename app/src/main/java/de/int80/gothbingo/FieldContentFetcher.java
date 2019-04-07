@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ class FieldContentFetcher extends AsyncTask<Void, Void, List<String>> {
     private Throwable lastError = null;
     private IMainActivityModel model;
 
-    public FieldContentFetcher(IMainActivityModel model) {
+    FieldContentFetcher(IMainActivityModel model) {
         this.model = model;
     }
 
@@ -37,9 +36,6 @@ class FieldContentFetcher extends AsyncTask<Void, Void, List<String>> {
 
         if (!response.isSuccessful())
             throw new IOException(response.message());
-
-            if ((response.networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED))
-                return "";
 
         return response.body().string();
     }
