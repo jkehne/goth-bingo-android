@@ -26,7 +26,9 @@ class NumPlayersActionProvider extends ActionProvider {
         ViewGroup providerViewGrp = (ViewGroup) providerView;
         numPlayersText = providerViewGrp.findViewById(R.id.numPlayersTextView);
 
-        setNumPlayers(WebSocketService.getInstance().getNumPlayers());
+        WebSocketService service = WebSocketService.getInstance();
+        if (service != null)
+            setNumPlayers(WebSocketService.getInstance().getNumPlayers());
 
         return providerView;
     }

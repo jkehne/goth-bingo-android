@@ -2,19 +2,28 @@ package de.int80.gothbingo;
 
 import android.os.AsyncTask;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivityModel implements IMainActivityModel {
 
     private static final String TAG = MainActivityModel.class.getSimpleName();
+
     private IMainActivityPresenter presenter;
-    private final GameState gameState;
+    private GameState gameState;
     private WebSocketServiceConnection backgroundServiceConnection;
     private FieldContentFetcher fieldContentFetcher;
+    private static MainActivityModel theInstance;
 
-    MainActivityModel() {
+    static MainActivityModel getInstance() {
+        if (theInstance == null)
+            theInstance = new MainActivityModel();
+
+        return theInstance;
+    }
+
+    private MainActivityModel() {
         gameState = new GameState();
-        backgroundServiceConnection = new WebSocketServiceConnection(this);
     }
 
     @Override
@@ -44,6 +53,8 @@ public class MainActivityModel implements IMainActivityModel {
         if (gameID != null)
             gameState.setGameID(gameID);
 
+        backgroundServiceConnection = new WebSocketServiceConnection(this);
+
         if (fieldContentFetcher != null) {
             presenter.showProgressDialog(GothBingo.getContext().getString(R.string.fields_downloading_message));
             return;
@@ -54,8 +65,7 @@ public class MainActivityModel implements IMainActivityModel {
             return;
         }
 
-        presenter.resetBoard(gameState.getAllFields());
-        presenter.setCheckedFields(gameState.getCheckedFieldsList());
+        presenter.resetBoard(gameState);
     }
 
     @Override
@@ -74,11 +84,23 @@ public class MainActivityModel implements IMainActivityModel {
         if (service != null)
             service.startNewGame();
 
+        resetGameState();
+
         fieldContentFetcher = new FieldContentFetcher(this);
         fieldContentFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         if (presenter != null)
             presenter.showProgressDialog(GothBingo.getContext().getString(R.string.fields_downloading_message));
+    }
+
+    private void resetGameState() {
+        String playerName = gameState.getPlayerName();
+        String gameID = gameState.getGameID();
+
+        gameState = new GameState();
+
+        gameState.setPlayerName(playerName);
+        gameState.setGameID(gameID);
     }
 
     @Override
@@ -95,10 +117,12 @@ public class MainActivityModel implements IMainActivityModel {
             presenter.onFieldsDownloadFailed(error);
             return;
         }
-        else if (fields != null)
+        else if (fields != null) {
+            Collections.shuffle(fields);
             gameState.setAllFields(fields);
+        }
 
-        presenter.resetBoard(gameState.getAllFields());
+        presenter.resetBoard(gameState);
     }
 
     @Override
@@ -106,4 +130,8 @@ public class MainActivityModel implements IMainActivityModel {
         this.presenter.onNumPlayersChanged(numPlayers);
     }
 
+    @Override
+    public GameState getState() {
+        return gameState;
+    }
 }

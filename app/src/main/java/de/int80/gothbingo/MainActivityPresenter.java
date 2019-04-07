@@ -22,8 +22,13 @@ class MainActivityPresenter implements IMainActivityPresenter {
         model.setPresenter(this);
     }
 
-    void onActivityCreated(String playerName, String gameID) {
+    public void onActivityCreated(String playerName, String gameID) {
         model.onActivityCreated(playerName, gameID);
+    }
+
+    @Override
+    public void onActivityRestored() {
+        this.resetBoard(model.getState());
     }
 
     void onActivityDestroyed()
@@ -43,13 +48,13 @@ class MainActivityPresenter implements IMainActivityPresenter {
     }
 
     @Override
-    public void resetBoard(List<String> fields) {
+    public void resetBoard(GameState state) {
         view.resetClickedState();
-        view.setFieldContents(fields);
+        view.setFieldContents(state.getAllFields());
+        this.setCheckedFields(state.getCheckedFieldsList());
     }
 
-    @Override
-    public void setCheckedFields(List<Pair<Integer, Integer>> checkedFields) {
+    private void setCheckedFields(List<Pair<Integer, Integer>> checkedFields) {
         for (Pair<Integer, Integer> field : checkedFields) {
             view.toggleField(field.first, field.second);
         }

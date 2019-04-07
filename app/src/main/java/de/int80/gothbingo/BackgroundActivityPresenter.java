@@ -16,10 +16,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.Pair;
 
 import java.io.IOException;
-import java.util.List;
 
 public class BackgroundActivityPresenter implements IMainActivityPresenter {
     private static final String TAG = BackgroundActivityPresenter.class.getSimpleName();
@@ -135,12 +133,7 @@ public class BackgroundActivityPresenter implements IMainActivityPresenter {
     }
 
     @Override
-    public void resetBoard(List<String> fields) {
-        // Can legitimately happen, but nothing to do here
-    }
-
-    @Override
-    public void setCheckedFields(List<Pair<Integer, Integer>> checkedFields) {
+    public void resetBoard(GameState state) {
         // Can legitimately happen, but nothing to do here
     }
 
@@ -167,6 +160,16 @@ public class BackgroundActivityPresenter implements IMainActivityPresenter {
     @Override
     public void onNumPlayersChanged(int numPlayers) {
         // Nothing to do here
+    }
+
+    @Override
+    public void onActivityCreated(String playerName, String gameID) {
+        Log.e(TAG, "Activity created event while activity in background");
+    }
+
+    @Override
+    public void onActivityRestored() {
+        Log.e(TAG, "Activity restored event while activity in background");
     }
 
 }

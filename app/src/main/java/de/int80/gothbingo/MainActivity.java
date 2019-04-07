@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
     }
 
     public MainActivity() {
-        presenter = new MainActivityPresenter(this, new MainActivityModel());
+        presenter = new MainActivityPresenter(this, MainActivityModel.getInstance());
     }
 
     @Override
@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         setSupportActionBar(myToolbar);
 
         String playerName = null, gameID = null;
+
+        if (savedInstanceState != null) {
+            presenter.onActivityRestored();
+            return;
+        }
 
         Intent launchIntent = getIntent();
         if (launchIntent != null) {
@@ -76,6 +81,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         } else {
             Log.e(TAG, "Failed to get notification manager");
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override
