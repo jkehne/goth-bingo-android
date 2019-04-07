@@ -5,22 +5,13 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.Resources;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -185,8 +176,7 @@ public class WebSocketService extends Service {
             builder.setChannelId(BACKGROUND_NOTIFICATION_CHANNEL);
         builder.setContentIntent(makeNotificationClickAction());
 
-        Notification notification = builder.build();
-        return notification;
+        return builder.build();
     }
 
     private PendingIntent makeNotificationClickAction() {
