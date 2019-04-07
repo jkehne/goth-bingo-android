@@ -13,4 +13,5 @@ public interface IMainActivity {
     void resetClickedState();
     void setFieldContents(List<String> fields);
     void showDownloadFailureDialog(Throwable t);
+    void setNumPlayers(int numPlayers);
 }

@@ -13,4 +13,5 @@ interface IMainActivityPresenter {
     void showProgressDialog(String message);
     void dismissProgressDialog();
     void onGameExit();
+    void onNumPlayersChanged(int numPlayers);
 }

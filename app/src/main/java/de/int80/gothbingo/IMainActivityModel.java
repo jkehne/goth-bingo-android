@@ -12,4 +12,5 @@ public interface IMainActivityModel {
     void startNewGame();
     void onGameExit();
     void onFieldContentFetcherComplete(List<String> fields, Throwable error);
+    void onNumPlayersChanged(int numPlayers);
 }

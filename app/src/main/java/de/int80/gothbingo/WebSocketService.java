@@ -82,14 +82,7 @@ public class WebSocketService extends Service {
     public void setNumPlayers(final int numPlayers) {
         Log.d(TAG, "Number of players changed to " + numPlayers);
         this.numPlayers = numPlayers;
-        final MainActivity currentMain = MainActivity.getCurrentInstance();
-        if (currentMain != null)
-            currentMain.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    currentMain.setNumPlayers(numPlayers);
-                }
-            });
+        this.activityModel.onNumPlayersChanged(numPlayers);
     }
 
     private final LocalBinder mBinder = new LocalBinder();

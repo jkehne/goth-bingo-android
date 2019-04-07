@@ -164,4 +164,9 @@ public class BackgroundActivityPresenter implements IMainActivityPresenter {
         Log.e(TAG, "Game exit requested while activity in background");
     }
 
+    @Override
+    public void onNumPlayersChanged(int numPlayers) {
+        // Nothing to do here
+    }
+
 }

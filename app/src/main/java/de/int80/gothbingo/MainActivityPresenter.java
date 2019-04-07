@@ -75,6 +75,11 @@ class MainActivityPresenter implements IMainActivityPresenter {
         model.onGameExit();
     }
 
+    @Override
+    public void onNumPlayersChanged(int numPlayers) {
+        this.view.setNumPlayers(numPlayers);
+    }
+
     void onFieldClicked(BingoFieldView field) {
         view.toggleField(field);
         model.handleFieldClicked(field.getFieldX(), field.getFieldY());

@@ -94,4 +94,9 @@ public class MainActivityModel implements IMainActivityModel {
         presenter.resetBoard(gameState.getAllFields());
     }
 
+    @Override
+    public void onNumPlayersChanged(int numPlayers) {
+        this.presenter.onNumPlayersChanged(numPlayers);
+    }
+
 }
