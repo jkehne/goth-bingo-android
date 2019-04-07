@@ -14,18 +14,12 @@ public class MainActivityModel implements IMainActivityModel {
 
     MainActivityModel() {
         gameState = new GameState();
-        startNewGame();
+        backgroundServiceConnection = new WebSocketServiceConnection(this);
     }
 
     @Override
     public void setPresenter(IMainActivityPresenter presenter) {
         this.presenter = presenter;
-        if (fieldContentFetcher != null)
-            presenter.showProgressDialog(GothBingo.getContext().getString(R.string.fields_downloading_message));
-        else {
-            presenter.resetBoard(gameState.getAllFields());
-            presenter.setCheckedFields(gameState.getCheckedFieldsList());
-        }
     }
 
     @Override
@@ -50,7 +44,18 @@ public class MainActivityModel implements IMainActivityModel {
         if (gameID != null)
             gameState.setGameID(gameID);
 
-        backgroundServiceConnection = new WebSocketServiceConnection(this);
+        if (fieldContentFetcher != null) {
+            presenter.showProgressDialog(GothBingo.getContext().getString(R.string.fields_downloading_message));
+            return;
+        }
+
+        if (gameState.getAllFields() == null) {
+            startNewGame();
+            return;
+        }
+
+        presenter.resetBoard(gameState.getAllFields());
+        presenter.setCheckedFields(gameState.getCheckedFieldsList());
     }
 
     @Override
@@ -65,7 +70,9 @@ public class MainActivityModel implements IMainActivityModel {
 
     @Override
     public void startNewGame() {
-        backgroundServiceConnection.getService().startNewGame();
+        WebSocketService service = backgroundServiceConnection.getService();
+        if (service != null)
+            service.startNewGame();
 
         fieldContentFetcher = new FieldContentFetcher(this);
         fieldContentFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
